@@ -21,19 +21,19 @@ Iterative and incremental software development. We follow Extreme Programming an
 
   3. step: Start BDD
     With the customer we create the first few features with scenarios on system test level
-  4. step: Craete the domain disctionary
+  4. step: Create the domain dictionary
   
-    | Hun                    | Eng               | Desription                                                                       |
+    | Hun                    | Eng               | Description                                                                      |
     | ország                 | country           |
     | megye                  | county            |
     | város                  | city              |
     | kerület                | district          | small city has no district                                                       |
-    | körzet                 | area              | if the disctrict is big (several people live there) it is split to several areas | 
+    | körzet                 | area              | if the district is big (several people live there) it is split to several areas  | 
     | kérdőív                | questionnaire     |
     | kérdés                 | question          |
     | szavazás               | voting            | when you finalize and send the vote                                              |
     | szavazat               | vote              | accepted vote                                                                    |
-    | érvénytelen szavazat   | invalid vote      | when somebody voting but non of the possibilities acceptable for you             |
-    | félbehagyott szavazás  | unfinished voting | get the questionnare but the voting does not happend                             |
-    | azonosítás             | authetication     |
+    | érvénytelen szavazat   | invalid vote      | when somebody voting but none of the possibilities acceptable for you            |
+    | félbehagyott szavazás  | unfinished voting | get the questionnaire but the voting does not happened                           |
+    | azonosítás             | authentication    |
     | eredmény               | result            |
