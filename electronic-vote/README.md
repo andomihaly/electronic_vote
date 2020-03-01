@@ -24,7 +24,33 @@ Iterative and incremental software development. We follow Extreme Programming an
 
   3. step: Start BDD
     With the customer we create the first few features with scenarios on system test level
-  4. step: Create the domain dictionary
+    
+  4. step: Create the domain dictionary (see end of the readme file)
+  
+  5. step: Based on the workflow and the collected examples we do a simplified user story mapping to find the MVP.
+    Here is one example: 
+    [Voting]
+    | start | -> | authentication | -> | choice based on district | -> | voting | -> | end |
+  
+    MVP for the [Voting] workflow
+    | authentication |:
+    As a voting manager I would like to authenticate each user to know who is s/he because just the authenticated user should vote
+    | choice based on district |:
+    As a voting manager I would like to give the proper questions for the voter based on where s/he live because s/he can vote only her / his areas' questions
+    As a government I would like to create questions for voting because the government need to know which direction should go 
+    | voting |:
+    As a voter I would like to vote so I can influence which direction the country goes
+    
+    Based on XP value we would like to get feedback to reach that we have to show a real case (which is valuable for the customer so it's end to end workflow) 
+    INVEST: Here is the lesson learn for those who can't understand what is MVP and Negotiable -> working from customer point of view, but not releasable because it's not enough mature 
+    | authentication |:
+    User name is a text which is not empty and for each user the password is "vote"
+    | choice based on district |:
+    Create one question referendum so the area and multiple questions is irrelevant
+    | voting |:
+    Store the votes in a simple text file: username | vote format and 1 line 1 vote
+  
+  Domain dictionary:
   
     | Hun                    | Eng               | Note          |
     |------------------------|-------------------|---------------|
