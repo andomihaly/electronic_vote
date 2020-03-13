@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
         strict = true,
         features = "src/test/java/hu/am/vote/systemtest",
         snippets = CucumberOptions.SnippetType.CAMELCASE,
-        plugin = "progress",
+        plugin = {"progress", "json:target/executable-specification/cucumber.json"},
         monochrome = true
 )
 
