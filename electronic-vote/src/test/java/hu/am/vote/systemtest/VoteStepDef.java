@@ -1,42 +1,49 @@
 package hu.am.vote.systemtest;
 
+import am.vote.entity.Answer;
+import hu.am.vote.systemtest.common.KnownVoteObject;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.hu.*;
 
+import static org.junit.Assert.*;
+
 public class VoteStepDef {
+    KnownVoteObject helper = new KnownVoteObject();
+
     @Amennyiben("folyamatban van a választás")
-    public void votingIsOngoing() {
-        throw new PendingException();
+    public void electionIsOngoing() {
+        assertTrue(helper.election.isStarted());
     }
 
     @Amennyiben("elmegyek szavazni")
     public void iGoToVote() {
-        throw new PendingException();
+
     }
 
     @És("sikeresen azonosítom magam")
     public void iIdentifyMyselfSuccessfully() {
-        throw new PendingException();
+        assertTrue(helper.authentication.isAuthenticated(helper.validUser));
     }
 
     @Majd("megkapom a körzetemnek megfelelő kérdőívet")
     public void iGetQuestionnaireRelatedToMyDistrict() {
-        throw new PendingException();
+        assertNotNull(helper.election.getQuestionnaire());
     }
 
     @Akkor("leadom a szavazatomat")
     public void iVote() {
-        throw new PendingException();
+        helper.election.vote(new Answer());
+        assertTrue(helper.election.isVoted(helper.validUser));
     }
 
     @De("nem tudom magam azonosítani")
     public void iCantIdentifyMyself() {
-        throw new PendingException();
+        assertFalse(helper.authentication.isAuthenticated(helper.invalidUser));
     }
 
     @Akkor("nem tudok szavazni")
     public void iCantVote() {
-        throw new PendingException();
+        assertFalse(helper.authentication.canVoted(helper.invalidUser));
     }
 
     @És("érvénytelen szavazatot akarok leadni")
@@ -76,6 +83,16 @@ public class VoteStepDef {
 
     @Akkor("még szavazhatok")
     public void iCanStillVote() {
+        throw new PendingException();
+    }
+
+    @De("fiatal vagyok")
+    public void iAmYoung() {
+        throw new PendingException();
+    }
+
+    @Akkor("nem szavazhatok")
+    public void iCannotVote() {
         throw new PendingException();
     }
 }
