@@ -5,7 +5,11 @@ import am.vote.entity.Answer;
 import am.vote.entity.Questionnaire;
 import am.vote.entity.User;
 
+import java.util.List;
+
 public class StubElection implements Election {
+    private List<Answer> vote;
+
     public boolean isStarted() {
         return true;
     }
@@ -14,7 +18,12 @@ public class StubElection implements Election {
         return new Questionnaire();
     }
 
-    public void vote(Answer answer) {
+    public void vote(List<Answer> vote) {
+        this.vote = vote;
+    }
+
+    public List<Answer> getVote(User user) {
+        return vote;
     }
 
     public boolean isVoted(User user) {

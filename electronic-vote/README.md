@@ -69,7 +69,7 @@ Iterative and incremental software development. We follow Extreme Programming an
     | kérdés                 | question          ||
     | szavazás               | voting            | when you finalize and send the vote                                              |
     | szavazat               | vote              | accepted vote                                                                    |
-    | érvénytelen szavazat   | invalid vote      | when somebody voting but none of the possibilities acceptable for you            |
+    | érvénytelen válasz     | invalid answer    | when somebody voting but none of the possibilities acceptable for you            |
     | félbehagyott szavazás  | unfinished voting | get the questionnaire but the voting does not happened                           |
     | azonosítás             | authentication    ||
     | eredmény               | result            ||

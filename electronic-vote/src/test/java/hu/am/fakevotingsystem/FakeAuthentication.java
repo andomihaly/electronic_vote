@@ -9,7 +9,7 @@ public class FakeAuthentication implements Authentication {
     }
 
     public boolean canVoted(User user) {
-        return true;
+        return false;
     }
 
 }

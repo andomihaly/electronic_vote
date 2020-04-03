@@ -5,6 +5,9 @@ import hu.am.vote.systemtest.common.KnownVoteObject;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.hu.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class VoteStepDef {
@@ -32,7 +35,7 @@ public class VoteStepDef {
 
     @Akkor("leadom a szavazatomat")
     public void iVote() {
-        helper.election.vote(new Answer());
+        helper.election.vote(Arrays.asList(new Answer()));
         assertTrue(helper.election.isVoted(helper.validUser));
     }
 
@@ -46,14 +49,20 @@ public class VoteStepDef {
         assertFalse(helper.authentication.canVoted(helper.invalidUser));
     }
 
-    @És("érvénytelen szavazatot akarok leadni")
-    public void iWantAddInvalidVote() {
-        throw new PendingException();
+    @És("érvénytelen választ akarok leadni")
+    public void iWantAddInvalidAnswer() {
+        Answer invalidAnswer = new Answer();
+        invalidAnswer.answer = Answer.INVALID_ANSWER;
+        helper.election.vote(Arrays.asList(invalidAnswer));
     }
 
-    @Akkor("érvénytelen szavazatot adtam le")
-    public void iAddedInvalidVote() {
-        throw new PendingException();
+    @Akkor("érvénytelen választ adtam le")
+    public void iAddedInvalidAnswer() {
+        List<Answer> vote = helper.election.getVote(helper.validUser);
+        assertTrue(helper.election.isVoted(helper.validUser));
+        assertTrue(
+            vote.stream().anyMatch(answer ->
+                    answer.answer.equalsIgnoreCase(Answer.INVALID_ANSWER)));
     }
 
     @Amennyiben("egyszer már szavaztam")

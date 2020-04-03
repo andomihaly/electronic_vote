@@ -15,12 +15,12 @@ Jellemző: Elektronikus szavazás
     De nem tudom magam azonosítani
     Akkor nem tudok szavazni
 
-  Forgatókönyv: Érvénytelen szavazat leadása
+  Forgatókönyv: Érvénytelen válasz leadása
     Amennyiben elmegyek szavazni
     És sikeresen azonosítom magam
     Majd megkapom a körzetemnek megfelelő kérdőívet
-    És érvénytelen szavazatot akarok leadni
-    Akkor érvénytelen szavazatot adtam le
+    És érvénytelen választ akarok leadni
+    Akkor érvénytelen választ adtam le
 
   Forgatókönyv: Csak egyszer szavazhatok
     Amennyiben egyszer már szavaztam
