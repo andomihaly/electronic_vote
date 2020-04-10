@@ -67,17 +67,17 @@ public class VoteStepDef {
 
     @Amennyiben("egyszer már szavaztam")
     public void iHaveAlreadyVoted() {
-        throw new PendingException();
+        assertTrue(helper.election.isVoted(helper.validUser));
     }
 
     @Majd("elmegyek újra szavazni")
     public void iGoToVoteAgain() {
-        throw new PendingException();
+    	
     }
 
     @Akkor("nem szavazhatok újra")
     public void iCantVoteAgain() {
-        throw new PendingException();
+        assertFalse(helper.authentication.canVoted(helper.validUser));
     }
 
     @Akkor("kérdésenként csak egyet választhatok")
@@ -104,4 +104,5 @@ public class VoteStepDef {
     public void iCannotVote() {
         throw new PendingException();
     }
+    
 }
