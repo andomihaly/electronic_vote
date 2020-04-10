@@ -11,7 +11,7 @@ public interface Election {
 
     Questionnaire getQuestionnaire();
 
-    void vote(List<Answer> vote);
+    void vote(User user, List<Answer> vote);
 
     List<Answer> getVote(User user);
 

@@ -35,7 +35,7 @@ public class VoteStepDef {
 
     @Akkor("leadom a szavazatomat")
     public void iVote() {
-        helper.election.vote(Arrays.asList(new Answer()));
+        helper.election.vote(helper.validUser , Arrays.asList(new Answer()));
         assertTrue(helper.election.isVoted(helper.validUser));
     }
 
@@ -46,14 +46,20 @@ public class VoteStepDef {
 
     @Akkor("nem tudok szavazni")
     public void iCantVote() {
-        assertFalse(helper.authentication.canVoted(helper.invalidUser));
+        assertFalse(helper.election.isVoted(helper.invalidUser));
+        helper.election.vote(helper.invalidUser, Arrays.asList(new Answer()));
+        assertFalse(helper.authentication.hasRightToVote(helper.invalidUser));
+        assertFalse(helper.election.isVoted(helper.invalidUser));
+        assertEquals("-2", helper.spyPresenter.lastErrorMessage);
     }
 
     @És("érvénytelen választ akarok leadni")
     public void iWantAddInvalidAnswer() {
+        assertFalse(helper.election.isVoted(helper.validUser));
+
         Answer invalidAnswer = new Answer();
         invalidAnswer.answer = Answer.INVALID_ANSWER;
-        helper.election.vote(Arrays.asList(invalidAnswer));
+        helper.election.vote(helper.validUser, Arrays.asList(invalidAnswer));
     }
 
     @Akkor("érvénytelen választ adtam le")
@@ -67,6 +73,8 @@ public class VoteStepDef {
 
     @Amennyiben("egyszer már szavaztam")
     public void iHaveAlreadyVoted() {
+        assertFalse(helper.election.isVoted(helper.validUser));
+        helper.election.vote(helper.validUser, Arrays.asList(new Answer()));
         assertTrue(helper.election.isVoted(helper.validUser));
     }
 
@@ -77,7 +85,9 @@ public class VoteStepDef {
 
     @Akkor("nem szavazhatok újra")
     public void iCantVoteAgain() {
-        assertFalse(helper.authentication.canVoted(helper.validUser));
+        assertTrue(helper.election.isVoted(helper.validUser));
+        helper.election.vote(helper.validUser, Arrays.asList(new Answer()));
+        assertEquals("-1", helper.spyPresenter.lastErrorMessage);
     }
 
     @Akkor("kérdésenként csak egyet választhatok")
@@ -87,12 +97,12 @@ public class VoteStepDef {
 
     @Majd("félbehagyom a szavazást")
     public void iMakeAnUnfinishedVoting() {
-        throw new PendingException();
+
     }
 
     @Akkor("még szavazhatok")
     public void iCanStillVote() {
-        throw new PendingException();
+        assertFalse(helper.election.isVoted(helper.validUser));
     }
 
     @De("fiatal vagyok")

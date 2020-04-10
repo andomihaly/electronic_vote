@@ -7,10 +7,10 @@ public class FakeAuthentication implements Authentication {
     public boolean isAuthenticated(User user) {
         return user.name.equals("Valid User");
     }
-    
+
     public boolean alreadyVoted = true;
 
-    public boolean canVoted(User user) {
+    public boolean hasRightToVote(User user) {
         return (alreadyVoted) ? false : true;
     }
 
