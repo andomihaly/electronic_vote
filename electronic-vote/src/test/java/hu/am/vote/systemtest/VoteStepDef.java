@@ -93,7 +93,9 @@ public class VoteStepDef {
 
     @Akkor("kérdésenként csak egyet választhatok")
     public void iCanChooseOnlyOnePerQuestion() {
-        throw new PendingException();
+        helper.election.vote(helper.validUser, Arrays.asList(helper.validAnswer, helper.validAnswer));
+        assertEquals("-3", helper.spyPresenter.lastErrorMessage);
+        assertFalse(helper.election.isVoted(helper.validUser));
     }
 
     @Majd("félbehagyom a szavazást")
