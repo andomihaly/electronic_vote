@@ -1,6 +1,7 @@
 package hu.am.vote.systemtest;
 
 import am.vote.entity.Answer;
+import am.vote.entity.Question;
 import hu.am.vote.systemtest.common.KnownVoteObject;
 import io.cucumber.java.PendingException;
 import io.cucumber.java.hu.*;
@@ -35,7 +36,7 @@ public class VoteStepDef {
 
     @Akkor("leadom a szavazatomat")
     public void iVote() {
-        helper.election.vote(helper.validUser , Arrays.asList(new Answer()));
+        helper.election.vote(helper.validUser, Arrays.asList(helper.validAnswer));
         assertTrue(helper.election.isVoted(helper.validUser));
     }
 
@@ -47,7 +48,7 @@ public class VoteStepDef {
     @Akkor("nem tudok szavazni")
     public void iCantVote() {
         assertFalse(helper.election.isVoted(helper.invalidUser));
-        helper.election.vote(helper.invalidUser, Arrays.asList(new Answer()));
+        helper.election.vote(helper.invalidUser, Arrays.asList(helper.validAnswer));
         assertFalse(helper.authentication.hasRightToVote(helper.invalidUser));
         assertFalse(helper.election.isVoted(helper.invalidUser));
         assertEquals("-2", helper.spyPresenter.lastErrorMessage);
@@ -57,36 +58,36 @@ public class VoteStepDef {
     public void iWantAddInvalidAnswer() {
         assertFalse(helper.election.isVoted(helper.validUser));
 
-        Answer invalidAnswer = new Answer();
-        invalidAnswer.answer = Answer.INVALID_ANSWER;
+        Answer invalidAnswer = new Answer(new Question(), Answer.INVALID_ANSWER);
         helper.election.vote(helper.validUser, Arrays.asList(invalidAnswer));
     }
 
     @Akkor("érvénytelen választ adtam le")
     public void iAddedInvalidAnswer() {
+        //FIXME: Szerintem nem szabadna tudni ki, milyen szavazatot adott le!
         List<Answer> vote = helper.election.getVote(helper.validUser);
         assertTrue(helper.election.isVoted(helper.validUser));
         assertTrue(
-            vote.stream().anyMatch(answer ->
-                    answer.answer.equalsIgnoreCase(Answer.INVALID_ANSWER)));
+                vote.stream().anyMatch(answer ->
+                        answer.choice == Answer.INVALID_ANSWER));
     }
 
     @Amennyiben("egyszer már szavaztam")
     public void iHaveAlreadyVoted() {
         assertFalse(helper.election.isVoted(helper.validUser));
-        helper.election.vote(helper.validUser, Arrays.asList(new Answer()));
+        helper.election.vote(helper.validUser, Arrays.asList(helper.validAnswer));
         assertTrue(helper.election.isVoted(helper.validUser));
     }
 
     @Majd("elmegyek újra szavazni")
     public void iGoToVoteAgain() {
-    	
+
     }
 
     @Akkor("nem szavazhatok újra")
     public void iCantVoteAgain() {
         assertTrue(helper.election.isVoted(helper.validUser));
-        helper.election.vote(helper.validUser, Arrays.asList(new Answer()));
+        helper.election.vote(helper.validUser, Arrays.asList(helper.validAnswer));
         assertEquals("-1", helper.spyPresenter.lastErrorMessage);
     }
 
@@ -114,5 +115,5 @@ public class VoteStepDef {
     public void iCannotVote() {
         throw new PendingException();
     }
-    
+
 }
