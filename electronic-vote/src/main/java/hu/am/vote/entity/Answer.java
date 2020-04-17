@@ -1,4 +1,4 @@
-package am.vote.entity;
+package hu.am.vote.entity;
 
 public class Answer {
     public static Optional INVALID_ANSWER = new Optional();

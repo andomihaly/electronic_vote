@@ -1,6 +1,6 @@
-package am.vote;
+package hu.am.vote;
 
-import am.vote.entity.User;
+import hu.am.vote.entity.User;
 
 public interface Authentication {
     boolean isAuthenticated(User user);

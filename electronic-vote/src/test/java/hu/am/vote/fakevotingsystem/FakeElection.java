@@ -1,17 +1,19 @@
-package hu.am.fakevotingsystem;
+package hu.am.vote.fakevotingsystem;
 
-import am.vote.Election;
-import am.vote.Presenter;
-import am.vote.entity.Answer;
-import am.vote.entity.Question;
-import am.vote.entity.Questionnaire;
-import am.vote.entity.User;
+import hu.am.vote.Election;
+import hu.am.vote.Presenter;
+import hu.am.vote.entity.Answer;
+import hu.am.vote.entity.Question;
+import hu.am.vote.entity.Questionnaire;
+import hu.am.vote.entity.User;
+import hu.am.vote.exception.*;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class FakeElection implements Election {
+
     private final Presenter presenter;
     private List<Answer> vote;
 
@@ -28,37 +30,35 @@ public class FakeElection implements Election {
     }
 
     public void vote(User user, List<Answer> vote) {
-        int hasProblem = 0;
-        hasProblem += checkUser(user);
-        hasProblem += checkVote(vote);
-        if (hasProblem == 0) {
+        try {
+            checkUser(user);
+            checkVote(vote);
             this.vote = vote;
+        } catch (VoteException e) {
+            presenter.showError(e.errorCode.toString());
+        } catch (Exception e) {
+            presenter.showError(ErrorCode.UNEXPECTED_ERROR.toString());
         }
+
     }
 
-    private int checkUser(User user) {
-        int hasProblem = 0;
+    private void checkUser(User user) {
         if (!user.name.equals("Valid User")) {
-            presenter.showError("-2");
-            hasProblem--;
+            throw new InvalidUserException();
         }
         if (this.vote != null) {
-            presenter.showError("-1");
-            hasProblem--;
+            throw new DoubledVoteException();
         }
-        return hasProblem;
     }
 
-    private int checkVote(List<Answer> vote) {
+    private void checkVote(List<Answer> vote) {
         Set<Question> questionSet = new HashSet<>();
         for (Answer answer: vote) {
             questionSet.add(answer.question);
         }
         if (vote.size() != questionSet.size()) {
-            presenter.showError("-3");
-            return -1;
+            throw new MultipleAnswerException();
         }
-        return 0;
     }
 
     public List<Answer> getVote(User user) {

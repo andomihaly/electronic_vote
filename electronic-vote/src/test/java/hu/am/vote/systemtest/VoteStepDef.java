@@ -1,11 +1,13 @@
 package hu.am.vote.systemtest;
 
-import am.vote.entity.Answer;
-import am.vote.entity.Question;
+import hu.am.vote.entity.Answer;
+import hu.am.vote.entity.Question;
+import hu.am.vote.entity.User;
 import hu.am.vote.systemtest.common.KnownVoteObject;
-import io.cucumber.java.PendingException;
 import io.cucumber.java.hu.*;
+import org.junit.Ignore;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class VoteStepDef {
     @És("sikeresen azonosítom magam")
     public void iIdentifyMyselfSuccessfully() {
         assertTrue(helper.authentication.isAuthenticated(helper.validUser));
+        assertTrue(helper.authentication.hasRightToVote(helper.validUser));
     }
 
     @Majd("megkapom a körzetemnek megfelelő kérdőívet")
@@ -49,9 +52,9 @@ public class VoteStepDef {
     public void iCantVote() {
         assertFalse(helper.election.isVoted(helper.invalidUser));
         helper.election.vote(helper.invalidUser, Arrays.asList(helper.validAnswer));
-        assertFalse(helper.authentication.hasRightToVote(helper.invalidUser));
+        assertFalse(helper.authentication.isAuthenticated(helper.invalidUser));
         assertFalse(helper.election.isVoted(helper.invalidUser));
-        assertEquals("-2", helper.spyPresenter.lastErrorMessage);
+        assertEquals("INVALID_USER", helper.spyPresenter.lastErrorMessage);
     }
 
     @És("érvénytelen választ akarok leadni")
@@ -88,13 +91,13 @@ public class VoteStepDef {
     public void iCantVoteAgain() {
         assertTrue(helper.election.isVoted(helper.validUser));
         helper.election.vote(helper.validUser, Arrays.asList(helper.validAnswer));
-        assertEquals("-1", helper.spyPresenter.lastErrorMessage);
+        assertEquals("DOUBLED_VOTE", helper.spyPresenter.lastErrorMessage);
     }
 
     @Akkor("kérdésenként csak egyet választhatok")
     public void iCanChooseOnlyOnePerQuestion() {
         helper.election.vote(helper.validUser, Arrays.asList(helper.validAnswer, helper.validAnswer));
-        assertEquals("-3", helper.spyPresenter.lastErrorMessage);
+        assertEquals("MULTIPLE_ANSWER", helper.spyPresenter.lastErrorMessage);
         assertFalse(helper.election.isVoted(helper.validUser));
     }
 
@@ -110,12 +113,12 @@ public class VoteStepDef {
 
     @De("fiatal vagyok")
     public void iAmYoung() {
-        throw new PendingException();
+        helper.validUser.birthDate = LocalDate.now().minusYears(18).plusDays(1);
     }
 
     @Akkor("nem szavazhatok")
     public void iCannotVote() {
-        throw new PendingException();
+        assertFalse(helper.authentication.hasRightToVote(helper.validUser));
     }
 
 }

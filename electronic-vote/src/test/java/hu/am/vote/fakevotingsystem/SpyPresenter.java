@@ -1,6 +1,6 @@
-package hu.am.fakevotingsystem;
+package hu.am.vote.fakevotingsystem;
 
-import am.vote.Presenter;
+import hu.am.vote.Presenter;
 
 public class SpyPresenter implements Presenter {
 

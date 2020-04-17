@@ -1,8 +1,8 @@
-package am.vote;
+package hu.am.vote;
 
-import am.vote.entity.Answer;
-import am.vote.entity.Questionnaire;
-import am.vote.entity.User;
+import hu.am.vote.entity.Answer;
+import hu.am.vote.entity.Questionnaire;
+import hu.am.vote.entity.User;
 
 import java.util.List;
 
@@ -16,4 +16,5 @@ public interface Election {
     List<Answer> getVote(User user);
 
     boolean isVoted(User user);
+
 }
