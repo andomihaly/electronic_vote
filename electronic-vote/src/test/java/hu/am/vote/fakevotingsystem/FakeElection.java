@@ -21,7 +21,7 @@ public class FakeElection implements Election {
         this.presenter = presenter;
     }
 
-    public boolean isStarted() {
+    public boolean isOngoing() {
         return true;
     }
 
@@ -59,10 +59,6 @@ public class FakeElection implements Election {
         if (vote.size() != questionSet.size()) {
             throw new MultipleAnswerException();
         }
-    }
-
-    public List<Answer> getVote(User user) {
-        return vote;
     }
 
     public boolean isVoted(User user) {

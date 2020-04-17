@@ -2,10 +2,8 @@ package hu.am.vote.systemtest;
 
 import hu.am.vote.entity.Answer;
 import hu.am.vote.entity.Question;
-import hu.am.vote.entity.User;
 import hu.am.vote.systemtest.common.KnownVoteObject;
 import io.cucumber.java.hu.*;
-import org.junit.Ignore;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -14,11 +12,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class VoteStepDef {
-    KnownVoteObject helper = new KnownVoteObject();
+    private KnownVoteObject helper = new KnownVoteObject();
+
+    private List<Answer> voteWithInvalidAnswer;
 
     @Amennyiben("folyamatban van a választás")
     public void electionIsOngoing() {
-        assertTrue(helper.election.isStarted());
+        assertTrue(helper.election.isOngoing());
     }
 
     @Amennyiben("elmegyek szavazni")
@@ -60,19 +60,15 @@ public class VoteStepDef {
     @És("érvénytelen választ akarok leadni")
     public void iWantAddInvalidAnswer() {
         assertFalse(helper.election.isVoted(helper.validUser));
-
         Answer invalidAnswer = new Answer(new Question(), Answer.INVALID_ANSWER);
-        helper.election.vote(helper.validUser, Arrays.asList(invalidAnswer));
+        voteWithInvalidAnswer = Arrays.asList(invalidAnswer, helper.validAnswer);
     }
 
     @Akkor("érvénytelen választ adtam le")
     public void iAddedInvalidAnswer() {
-        //FIXME: Szerintem nem szabadna tudni ki, milyen szavazatot adott le!
-        List<Answer> vote = helper.election.getVote(helper.validUser);
+        assertFalse(helper.election.isVoted(helper.validUser));
+        helper.election.vote(helper.validUser, voteWithInvalidAnswer);
         assertTrue(helper.election.isVoted(helper.validUser));
-        assertTrue(
-                vote.stream().anyMatch(answer ->
-                        answer.choice == Answer.INVALID_ANSWER));
     }
 
     @Amennyiben("egyszer már szavaztam")

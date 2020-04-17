@@ -1,11 +1,11 @@
 package hu.am.vote.entity;
 
 public class Answer {
-    public static Optional INVALID_ANSWER = new Optional();
+    public static Option INVALID_ANSWER = new Option();
     public Question question;
-    public Optional choice;
+    public Option choice;
 
-    public Answer(Question question, Optional choice) {
+    public Answer(Question question, Option choice) {
         this.question = question;
         this.choice = choice;
     }
