@@ -15,4 +15,8 @@ public class FakeAuthentication implements Authentication {
         return true;
     }
 
+    public boolean login(String name, String password) {
+        return true;
+    }
+
 }
