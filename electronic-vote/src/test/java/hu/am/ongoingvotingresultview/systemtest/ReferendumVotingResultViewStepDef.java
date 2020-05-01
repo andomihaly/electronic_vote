@@ -1,10 +1,13 @@
 package hu.am.ongoingvotingresultview.systemtest;
 
 import hu.am.ongoingvotingresultview.systemtest.fakesystem.FakeElection;
+import hu.am.ongoingvotingresultview.systemtest.fakesystem.FakeFinalResultProvider;
 import hu.am.ongoingvotingresultview.systemtest.fakesystem.FakeReferendumStatistic;
 import hu.am.vote.Election;
-import hu.am.vote.ReferendumStatistic;
-import hu.am.vote.entity.ReferendumResult;
+import hu.am.vote.FinalResultProvider;
+import hu.am.vote.OngoingStatisticProvider;
+import hu.am.vote.entity.ElectionResult;
+import hu.am.vote.entity.OngoingTurnoutStatistic;
 import io.cucumber.java.hu.Akkor;
 import io.cucumber.java.hu.Amennyiben;
 import io.cucumber.java.hu.Amikor;
@@ -14,8 +17,10 @@ import static org.junit.Assert.*;
 public class ReferendumVotingResultViewStepDef {
 
     private Election election = new FakeElection();
-    private ReferendumStatistic referendumStatistic = new FakeReferendumStatistic();
-    private ReferendumResult result;
+    private OngoingStatisticProvider ongoingStatisticProvider = new FakeReferendumStatistic();
+    private OngoingTurnoutStatistic ongoingTurnoutStatistic;
+    private FinalResultProvider finalResultProvider = new FakeFinalResultProvider(election);
+    private ElectionResult electionResult;
 
     @Amennyiben("elindult a népszavazás")
     public void referendumStarted() {
@@ -29,58 +34,62 @@ public class ReferendumVotingResultViewStepDef {
 
     @Amikor("megnézem a választási adatokat")
     public void iSeeReferendumResult() {
-        result = referendumStatistic.getActualCumulativeResultByCountry(election);
+        ongoingTurnoutStatistic = ongoingStatisticProvider.getTurnoutByCountry(election, "HUN");
+        electionResult = finalResultProvider.getResultByCountry("HUN");
     }
 
     @Akkor("látom az aktuális összegzett országos részvételi arányt")
     public void iSeeTheActualCumulativeVoterTurnoutResultByCountry() {
-        assertNotNull(result.voterTurnover);
+        assertNotNull(ongoingTurnoutStatistic);
+        assertNotEquals(-1, ongoingTurnoutStatistic.numberOfPotentialVoter);
+        assertNotEquals(-1, ongoingTurnoutStatistic.numberOfVoterAlreadyVoted);
+        assertNotEquals(-1, ongoingTurnoutStatistic.getTurnoutRate());
     }
 
     @Akkor("nem látom az aktuális szavazási eredményeket")
     public void iCantSeeTheActualResult() {
-        assertNull(result.votingResult);
+        assertNull(electionResult);
     }
 
     @Amikor("kiválasztom a megyét vagy a fővárost")
     public void iChooseTheCountyOrTheCapital() {
-        result = referendumStatistic.getActualCumulativeResultByCounty(election,"Budapest");
+        ongoingTurnoutStatistic = ongoingStatisticProvider.getTurnoutByCounty(election,"Budapest");
     }
 
     @Akkor("látom az aktuális összegzett részvételi arányt")
     public void iSeeTheActualCumulativeVoterTurnoutResult() {
-        assertNotNull(result.voterTurnover);
+        //assertNotNull(ongoingTurnoutStatistic.voterTurnOut);
     }
 
     @Amikor("kiválasztok egy települést")
     public void iChooseASettlement() {
-        result = referendumStatistic.getActualCumulativeResultBySettlement(election,"Pécel");
+        ongoingTurnoutStatistic = ongoingStatisticProvider.getTurnoutBySettlement(election,"Pécel");
     }
 
     @Akkor("látom az aktuális összegzett települési részvételi arányt")
     public void iSeeTheActualCumulativeVoterTurnoutResultBySettlement() {
-        assertNull(result.votingResult);
+        //assertNull(ongoingTurnoutStatistic.votingResult);
     }
 
     @Amikor("kiválasztok egy kerületet")
     public void iChooseADistrict() {
-        result = referendumStatistic.getActualCumulativeResultByDistrict(election,"XVII");
+        ongoingTurnoutStatistic = ongoingStatisticProvider.getTurnoutByDistrict(election,"XVII");
     }
 
     @Akkor("látom az aktuális összegzett kerületi részvételi arányt")
     public void iSeeTheActualCumulativeVoterTurnoutResultByDistrict() {
-        assertNotNull(result.voterTurnover);
+        //assertNotNull(ongoingTurnoutStatistic.voterTurnOut);
     }
 
 
     @Amikor("kiválasztok egy körzetet")
     public void iChooseAnArea() {
-        result = referendumStatistic.getActualCumulativeResultByArea(election,"AREACODE_9");
+        ongoingTurnoutStatistic = ongoingStatisticProvider.getTurnoutByArea(election,"AREACODE_9");
     }
 
     @Akkor("látom az aktuális körzeti részvételi arányt")
     public void iSeeTheActualCumulativeVoterTurnoutResultByArea() {
-        assertNotNull(result.voterTurnover);
+        //assertNotNull(ongoingTurnoutStatistic.voterTurnOut);
     }
 
 }
