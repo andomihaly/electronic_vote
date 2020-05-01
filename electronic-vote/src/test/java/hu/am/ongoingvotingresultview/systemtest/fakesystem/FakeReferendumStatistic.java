@@ -4,31 +4,32 @@ import hu.am.vote.Election;
 import hu.am.vote.OngoingStatisticProvider;
 import hu.am.vote.entity.OngoingTurnoutStatistic;
 
-import java.math.BigDecimal;
-
 public class FakeReferendumStatistic implements OngoingStatisticProvider {
+    public FakeReferendumStatistic(Election election) {
+    }
+
     @Override
-    public OngoingTurnoutStatistic getTurnoutByCountry(Election election, String countryCode) {
+    public OngoingTurnoutStatistic getTurnoutByCountry(String countryCode) {
         return getFakeResult();
     }
 
     @Override
-    public OngoingTurnoutStatistic getTurnoutByCounty(Election election, String countyCode) {
+    public OngoingTurnoutStatistic getTurnoutByCounty(String countyCode) {
         return getFakeResult();
     }
 
     @Override
-    public OngoingTurnoutStatistic getTurnoutBySettlement(Election election, String settlementCode) {
+    public OngoingTurnoutStatistic getTurnoutBySettlement(String settlementCode) {
         return getFakeResult();
     }
 
     @Override
-    public OngoingTurnoutStatistic getTurnoutByDistrict(Election election, String districtCode) {
+    public OngoingTurnoutStatistic getTurnoutByDistrict(String districtCode) {
         return getFakeResult();
     }
 
     @Override
-    public OngoingTurnoutStatistic getTurnoutByArea(Election election, String areaCode) {
+    public OngoingTurnoutStatistic getTurnoutByArea(String areaCode) {
         return getFakeResult();
     }
 

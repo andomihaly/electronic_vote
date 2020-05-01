@@ -15,4 +15,24 @@ public class FakeFinalResultProvider implements FinalResultProvider {
     public ElectionResult getResultByCountry(String countryCode) {
         return null;
     }
+
+    @Override
+    public ElectionResult getResultByCounty(String countyCode) {
+        return null;
+    }
+
+    @Override
+    public ElectionResult getResultBySettlement(String settlementCode) {
+        return null;
+    }
+
+    @Override
+    public ElectionResult getResultByDistrict(String districtCode) {
+        return null;
+    }
+
+    @Override
+    public ElectionResult getResultByArea(String areaCode) {
+        return null;
+    }
 }
