@@ -22,6 +22,16 @@ public class FakeReferendumStatistic implements ReferendumStatistic {
         return getFakeResult();
     }
 
+    @Override
+    public ReferendumResult getActualCumulativeResultByDistrict(Election election, String district) {
+        return getFakeResult();
+    }
+
+    @Override
+    public ReferendumResult getActualCumulativeResultByArea(Election election, String areacode) {
+        return getFakeResult();
+    }
+
     private ReferendumResult getFakeResult() {
         ReferendumResult result = new ReferendumResult();
         result.voterTurnover = new BigDecimal("20.2");
