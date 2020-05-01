@@ -11,13 +11,11 @@ public class AuthenticationStepDef {
 
     @Amennyiben("megadom a helyes felhasználónév-jelszó párosom")
     public void iGiveMyRightUsernameAndPassword() {
-        // Write code here that turns the phrase above into concrete actions
-        assertTrue(helper.authentication.login("Valid user name", "Valid password"));
+        helper.authentication.login("Valid user name", "Valid password");
     }
     @Akkor("be vagyok jelentkezve a rendszerbe")
     public void iLoggedIntoTheSystem() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        helper.userManagement.isLoggedIn(helper.validUser);
     }
     @Amennyiben("kártyaolvasóval beolvasom az eSzemélyim")
     public void cardReaderReadMyEIdentityCard() {

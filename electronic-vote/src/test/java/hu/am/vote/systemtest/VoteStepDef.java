@@ -28,8 +28,8 @@ public class VoteStepDef {
 
     @És("sikeresen azonosítom magam")
     public void iIdentifyMyselfSuccessfully() {
-        assertTrue(helper.authentication.isAuthenticated(helper.validUser));
-        assertTrue(helper.authentication.hasRightToVote(helper.validUser));
+        assertTrue(helper.userManagement.isLoggedIn(helper.validUser));
+        assertTrue(helper.userManagement.hasRightToVote(helper.validUser));
     }
 
     @Majd("megkapom a körzetemnek megfelelő kérdőívet")
@@ -45,14 +45,14 @@ public class VoteStepDef {
 
     @De("nem tudom magam azonosítani")
     public void iCantIdentifyMyself() {
-        assertFalse(helper.authentication.isAuthenticated(helper.invalidUser));
+        assertFalse(helper.userManagement.isLoggedIn(helper.invalidUser));
     }
 
     @Akkor("nem tudok szavazni")
     public void iCantVote() {
         assertFalse(helper.election.isVoted(helper.invalidUser));
         helper.election.vote(helper.invalidUser, Arrays.asList(helper.validAnswer));
-        assertFalse(helper.authentication.isAuthenticated(helper.invalidUser));
+        assertFalse(helper.userManagement.isLoggedIn(helper.invalidUser));
         assertFalse(helper.election.isVoted(helper.invalidUser));
         assertEquals("INVALID_USER", helper.spyPresenter.lastErrorMessage);
     }
@@ -114,7 +114,7 @@ public class VoteStepDef {
 
     @Akkor("nem szavazhatok")
     public void iCannotVote() {
-        assertFalse(helper.authentication.hasRightToVote(helper.validUser));
+        assertFalse(helper.userManagement.hasRightToVote(helper.validUser));
     }
 
 }
