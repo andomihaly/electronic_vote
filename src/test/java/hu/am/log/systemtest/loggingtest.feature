@@ -2,6 +2,7 @@ Feature: Tests for the application loggings behaviour
 
   Scenario: Log in Silent level
     When the log system set to Silent
+    When the business logic called
     Then Log should be empty
     
   Scenario: Log in Error level
