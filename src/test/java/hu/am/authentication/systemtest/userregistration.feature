@@ -7,7 +7,7 @@ Jellemző: Felhasználói regisztráció
     És megadom egy megfelelő email címemet
     És megadok egy megfelelő és egyedi felhasználói azonosítót magamnak
     Majd az ügyfélszolgálatos befejezi a regisztrációt
-    Akkor a rendszer jelzi jelzi számunkra a sikeres regisztrációt
+    Akkor a rendszer jelzi számunkra a sikeres regisztrációt
     És a megadott email címemre elküld egy ideiglenes, generált jelszót
 
   Forgatókönyv: Sikertelen regisztráció

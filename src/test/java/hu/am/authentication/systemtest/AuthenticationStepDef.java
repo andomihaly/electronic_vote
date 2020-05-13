@@ -1,13 +1,14 @@
-package hu.am.vote.systemtest;
+package hu.am.authentication.systemtest;
 
 import hu.am.vote.systemtest.common.KnownVoteObject;
+import hu.am.authentication.systemtest.common.KnownAuthenticationObject;
 import io.cucumber.java.hu.Akkor;
 import io.cucumber.java.hu.Amennyiben;
 
 import static org.junit.Assert.assertTrue;
 
 public class AuthenticationStepDef {
-    private KnownVoteObject helper = new KnownVoteObject();
+    private KnownAuthenticationObject helper = new KnownAuthenticationObject();
 
     @Amennyiben("megadom a helyes felhasználónév-jelszó párosom")
     public void iGiveMyRightUsernameAndPassword() {
@@ -15,7 +16,8 @@ public class AuthenticationStepDef {
     }
     @Akkor("be vagyok jelentkezve a rendszerbe")
     public void iLoggedIntoTheSystem() {
-        helper.userManagement.isLoggedIn(helper.validUser);
+        // helper.userManagement.isLoggedIn(helper.validUser);
+        throw new io.cucumber.java.PendingException();
     }
     @Amennyiben("kártyaolvasóval beolvasom az eSzemélyim")
     public void cardReaderReadMyEIdentityCard() {

@@ -1,4 +1,4 @@
-package hu.am.vote.fakevotingsystem;
+package hu.am.authentication.fakeauthenticationsystem;
 
 import hu.am.vote.Authentication;
 
