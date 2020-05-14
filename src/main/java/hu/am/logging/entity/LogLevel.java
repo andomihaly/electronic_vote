@@ -1,5 +1,8 @@
 package hu.am.logging.entity;
 
 public enum LogLevel {
-    SILENT
+    SILENT,
+    ERROR,
+    INFO,
+    DEBUG
 }

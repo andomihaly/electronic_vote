@@ -3,9 +3,16 @@ package hu.am.log.systemtest;
 import hu.am.log.fakeloggingsystem.FakeBusinessLogic;
 import hu.am.log.fakeloggingsystem.SpyLoggingSystem;
 import hu.am.logging.LogSystem;
+import hu.am.logging.entity.CallerMode;
+import hu.am.logging.entity.Log;
 import hu.am.logging.entity.LogLevel;
 import io.cucumber.java.en.*;
+
+import java.time.LocalDate;
+import java.util.List;
+
 import org.junit.Assert;
+
 
 public class LoggingStepDef {
 
@@ -18,7 +25,7 @@ public class LoggingStepDef {
     @When("the business logic called")
     public void theBusinessLogicCalled() {
         FakeBusinessLogic fbl= new FakeBusinessLogic(logSystem);
-        fbl.Run();
+        fbl.run();
     }
 
     @Then("Log should be empty")
@@ -28,32 +35,41 @@ public class LoggingStepDef {
 
     @Given("the log system set to Error")
     public void theLogSystemSetToError() {
-        throw new io.cucumber.java.PendingException();
+    	logSystem.setLogLevel(LogLevel.ERROR);
     }
 
     @When("an error occurred in the system")
     public void anErrorOccurredInTheSystem() {
-        throw new io.cucumber.java.PendingException();
+    	FakeBusinessLogic fbl= new FakeBusinessLogic(logSystem);
+    	fbl.runWithException();
     }
+    
 
     @Then("the log contains only the Error information")
     public void theLogContainsOnlyTheErrorInformation() {
-        throw new io.cucumber.java.PendingException();
+    	Assert.assertTrue(containsOnlyErrorLog(logSystem.spyLogs));
+    	Assert.assertFalse(logSystem.spyLogs.get(logSystem.spyLogs.size()-1).logText.isEmpty());
     }
+    
 
     @Given("the log system set to Info")
     public void theLogSystemSetToInfo() {
-        throw new io.cucumber.java.PendingException();
+    	logSystem.setLogLevel(LogLevel.INFO);
     }
 
     @Then("Log system should contains the business logic name and time")
     public void logSystemShouldContainsTheBusinessLogicNameAndTime() {
-        throw new io.cucumber.java.PendingException();
+    	Log actualLog = logSystem.spyLogs.get(logSystem.spyLogs.size()-1);
+    	Assert.assertEquals(LogLevel.INFO,actualLog.logLevel);
+    	String[] parsedLogText = actualLog.logText.split("\\|");
+    	Assert.assertEquals("Fake business logic's run method called", parsedLogText[0]);
+    	String todayDate = LocalDate.now().toString();
+    	Assert.assertTrue(parsedLogText[1].contains(todayDate));
     }
 
     @Given("the log system set to Debug")
     public void theLogSystemSetToDebug() {
-        throw new io.cucumber.java.PendingException();
+    	logSystem.setLogLevel(LogLevel.DEBUG);
     }
 
     @Then("log system should contain the parameters' values which the business logic called")
@@ -63,12 +79,12 @@ public class LoggingStepDef {
 
     @Given("the log system set to not Silent")
     public void theLogSystemSetToNotSilent() {
-        throw new io.cucumber.java.PendingException();
+        Assert.assertFalse(logSystem.getLogLevel()!=LogLevel.SILENT);
     }
 
     @Given("caller mode is Anonym")
     public void callerModeIsAnonym() {
-        throw new io.cucumber.java.PendingException();
+    	logSystem.setCallerMode(CallerMode.ANONYM);
     }
 
     @Then("the log system should not contain user and authorization information")
@@ -78,7 +94,7 @@ public class LoggingStepDef {
 
     @Given("caller mode is Personal")
     public void callerModeIsPersonal() {
-        throw new io.cucumber.java.PendingException();
+    	logSystem.setCallerMode(CallerMode.PERSONAL);
     }
 
     @Then("the log system should contain user and authorization information")
@@ -161,4 +177,15 @@ public class LoggingStepDef {
         
         throw new io.cucumber.java.PendingException();
     }
+    
+    private boolean containsOnlyErrorLog(List<Log> logs) {
+    	boolean onlyErrorInTheLog = true;
+    	for(int i=0; i<logs.size();i++) {
+    		if (logs.get(i).logLevel!=LogLevel.ERROR) {
+    			onlyErrorInTheLog = false;
+    		}
+    	}
+    	return onlyErrorInTheLog;
+    }
+    
 }
