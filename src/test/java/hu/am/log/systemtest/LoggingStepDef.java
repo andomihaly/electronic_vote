@@ -2,7 +2,6 @@ package hu.am.log.systemtest;
 
 import hu.am.log.fakeloggingsystem.FakeBusinessLogic;
 import hu.am.log.fakeloggingsystem.SpyLoggingSystem;
-import hu.am.logging.LogSystem;
 import hu.am.logging.entity.CallerMode;
 import hu.am.logging.entity.Log;
 import hu.am.logging.entity.LogLevel;
@@ -99,82 +98,6 @@ public class LoggingStepDef {
 
     @Then("the log system should contain user and authorization information")
     public void theLogSystemShouldContainUserAndAuthorizationInformation() {
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Given("a fully working log system")
-    public void aFullyWorkingLogSystem() {
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @When("persistence problem occurred")
-    public void persistenceProblemOccurred() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Then("operation engineer has notified")
-    public void operationEngineerHasNotified() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Then("the log system continuously collects the logs")
-    public void theLogSystemContinuouslyCollectsTheLogs() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Given("a limited working log system")
-    public void aLimitedWorkingLogSystem() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Given("we have log which is not stored in a persistent way")
-    public void weHaveLogWhichIsNotStoredInAPersistentWay() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @When("a given time has come")
-    public void aGivenTimeHasCome() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Then("the log system tries to store the logs in a persistent way")
-    public void theLogSystemTriesToStoreTheLogsInAPersistentWay() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Given("the persistent problem already solved")
-    public void thePersistentProblemAlreadySolved() {
-       
-    }
-
-    @Then("the unsaved logs successfully saved in a persistent way")
-    public void theUnsavedLogsSuccessfullySavedInAPersistentWay() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Given("the persistent problem still present")
-    public void thePersistentProblemStillPresent() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Then("the unsaved logs are not saved in a persistent way")
-    public void theUnsavedLogsAreNotSavedInAPersistentWay() {
-        
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Then("it still available in unsaved logs")
-    public void itStillAvailableInUnsavedLogs() {
-        
         throw new io.cucumber.java.PendingException();
     }
     

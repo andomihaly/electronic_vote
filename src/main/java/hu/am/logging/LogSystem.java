@@ -6,7 +6,7 @@ import hu.am.logging.entity.CallerMode;
 public interface LogSystem {
     void setLogLevel(LogLevel logLevel);
     void addLog(LogLevel logLevel, String logText);
-  //  void addLog(LogLevel logLevel, String logText, userinfo->username,mode);
+    void saveTempLogs();
     
     LogLevel getLogLevel();
     void setCallerMode(CallerMode callerMode);

@@ -10,7 +10,8 @@ import java.util.List;
 
 public class SpyLoggingSystem implements LogSystem {
     public List<Log> spyLogs = new ArrayList<Log>();
-    private LogLevel logLevel;
+    protected LogLevel logLevel = LogLevel.INFO;
+
     @Override
     public void setLogLevel(LogLevel logLevel) {
     	this.logLevel = logLevel;
@@ -28,18 +29,19 @@ public class SpyLoggingSystem implements LogSystem {
     		spyLogs.add(new Log(messageLogLevel, logText));
     	}
     }
-    
+
+	@Override
+	public void saveTempLogs() {
+
+	}
 
 	@Override
 	public LogLevel getLogLevel() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	@Override
 	public CallerMode getCallerMode() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
