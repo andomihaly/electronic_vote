@@ -17,13 +17,19 @@ public class FakeBusinessLogic {
 
     }
     
+    public void runWithParameter(String param1, String param2) {
+    	logSystem.addLog(LogLevel.INFO, "fakeparameters are: "+param1+", "+param2);
+    }
+    
     public void runWithException() {
     	try {
     		run();
     		int a = 10/0;
     	}
     	catch(Exception e) {
-    		logSystem.addLog(LogLevel.ERROR, e.toString());
+
+    			logSystem.addLog(LogLevel.ERROR, e.toString());
+
     	}
     }
 }

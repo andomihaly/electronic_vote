@@ -7,6 +7,8 @@ import hu.am.logging.entity.Log;
 import hu.am.logging.entity.LogLevel;
 import io.cucumber.java.en.*;
 
+import static org.junit.Assert.assertTrue;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -73,7 +75,9 @@ public class LoggingStepDef {
 
     @Then("log system should contain the parameters' values which the business logic called")
     public void logSystemShouldContainTheParametersValuesWhichTheBusinessLogicCalled() {
-        throw new io.cucumber.java.PendingException();
+    	FakeBusinessLogic fbl= new FakeBusinessLogic(logSystem);
+    	fbl.runWithParameter("param1", "param2");
+    	Assert.assertTrue(logSystem.spyLogs.get(logSystem.spyLogs.size()-1).logText.contains("param1, param2"));
     }
 
     @Given("the log system set to not Silent")
@@ -88,7 +92,7 @@ public class LoggingStepDef {
 
     @Then("the log system should not contain user and authorization information")
     public void theLogSystemShouldNotContainUserAndAuthorizationInformation() {
-        throw new io.cucumber.java.PendingException();
+    	throw new io.cucumber.java.PendingException();
     }
 
     @Given("caller mode is Personal")

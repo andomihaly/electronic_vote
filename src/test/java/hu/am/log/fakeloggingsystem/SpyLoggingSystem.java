@@ -11,6 +11,7 @@ import java.util.List;
 public class SpyLoggingSystem implements LogSystem {
     public List<Log> spyLogs = new ArrayList<Log>();
     protected LogLevel logLevel = LogLevel.INFO;
+    protected CallerMode callerMode = CallerMode.PERSONAL;
 
     @Override
     public void setLogLevel(LogLevel logLevel) {
@@ -19,7 +20,7 @@ public class SpyLoggingSystem implements LogSystem {
     
     @Override
     public void setCallerMode(CallerMode callerMode) {
-    	
+    	this.callerMode = callerMode;
     }
     
 
