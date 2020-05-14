@@ -17,8 +17,8 @@ public class SpyLoggingSystemWithPersistentIssue extends SpyLoggingSystem implem
     @Override
     public void addLog(LogLevel messageLogLevel, String logText) {
         if (persistentIssue) {
+            notifiedAdminsitrationAboutPersistentLogSystemIssue();
             spyTempLogs.add(new Log(messageLogLevel, logText));
-            lastNotification = "persistentIssue";
         }
         else
             super.addLog(messageLogLevel, logText);
