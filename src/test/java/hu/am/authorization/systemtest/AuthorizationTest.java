@@ -1,4 +1,4 @@
-package hu.am.authentication.systemtest;
+package hu.am.authorization.systemtest;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -13,5 +13,5 @@ import org.junit.runner.RunWith;
         monochrome = true
 )
 
-public class AuthenticationTest {
+public class AuthorizationTest {
 }

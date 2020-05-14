@@ -1,4 +1,4 @@
-package hu.am.authentication.systemtest;
+package hu.am.authorization.systemtest;
 
 import hu.am.vote.systemtest.common.KnownVoteObject;
 import hu.am.authentication.systemtest.common.KnownAuthenticationObject;

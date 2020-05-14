@@ -1,6 +1,6 @@
 package hu.am.authentication.fakeauthenticationsystem;
 
-import hu.am.vote.Authentication;
+import hu.am.authentication.Authentication;
 
 public class FakeAuthentication implements Authentication {
     @Override
