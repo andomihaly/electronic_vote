@@ -20,7 +20,7 @@ Feature: Tests for the application loggings behaviour
     When the business logic called
     And an error occurred in the system
     Then Log system should contains the business logic name and time
-    And the log contains only the Error information
+    And the log contains error information too
 
   Scenario: Log in Debug level
   	Given the log system set to Debug

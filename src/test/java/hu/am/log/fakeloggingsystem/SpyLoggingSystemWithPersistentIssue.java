@@ -3,6 +3,7 @@ package hu.am.log.fakeloggingsystem;
 import hu.am.logging.AdminsitratorNotificator;
 import hu.am.logging.entity.Log;
 import hu.am.logging.entity.LogLevel;
+import hu.am.logging.entity.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +16,13 @@ public class SpyLoggingSystemWithPersistentIssue extends SpyLoggingSystem implem
     private boolean persistentIssue = false;
 
     @Override
-    public void addLog(LogLevel messageLogLevel, String logText) {
+    public void addLog(LogLevel messageLogLevel, String logText, String[] parameters, UserInfo userInfo) {
         if (persistentIssue) {
             notifiedAdminsitrationAboutPersistentLogSystemIssue();
             spyTempLogs.add(new Log(messageLogLevel, logText));
         }
         else
-            super.addLog(messageLogLevel, logText);
+            super.addLog(messageLogLevel, logText, parameters, userInfo);
     }
 
     @Override

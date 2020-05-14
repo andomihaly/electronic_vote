@@ -18,6 +18,8 @@ import org.junit.Assert;
 public class LoggingStepDef {
 
     private SpyLoggingSystem logSystem = new SpyLoggingSystem();
+    private final FakeBusinessLogic fakeBusinessLogic = new FakeBusinessLogic(logSystem);
+
     @When("the log system set to Silent")
     public void theLogSystemSetToSilent() {
         logSystem.setLogLevel(LogLevel.SILENT);
@@ -25,8 +27,7 @@ public class LoggingStepDef {
 
     @When("the business logic called")
     public void theBusinessLogicCalled() {
-        FakeBusinessLogic fbl= new FakeBusinessLogic(logSystem);
-        fbl.run();
+        fakeBusinessLogic.run();
     }
 
     @Then("Log should be empty")
@@ -41,17 +42,14 @@ public class LoggingStepDef {
 
     @When("an error occurred in the system")
     public void anErrorOccurredInTheSystem() {
-    	FakeBusinessLogic fbl= new FakeBusinessLogic(logSystem);
-    	fbl.runWithException();
+        fakeBusinessLogic.runWithException();
     }
-    
 
     @Then("the log contains only the Error information")
     public void theLogContainsOnlyTheErrorInformation() {
     	Assert.assertTrue(containsOnlyErrorLog(logSystem.spyLogs));
     	Assert.assertFalse(logSystem.spyLogs.get(logSystem.spyLogs.size()-1).logText.isEmpty());
     }
-    
 
     @Given("the log system set to Info")
     public void theLogSystemSetToInfo() {
@@ -60,12 +58,20 @@ public class LoggingStepDef {
 
     @Then("Log system should contains the business logic name and time")
     public void logSystemShouldContainsTheBusinessLogicNameAndTime() {
-    	Log actualLog = logSystem.spyLogs.get(logSystem.spyLogs.size()-1);
-    	Assert.assertEquals(LogLevel.INFO,actualLog.logLevel);
-    	String[] parsedLogText = actualLog.logText.split("\\|");
+    	Log lastInfoLog = getLastLogByType(LogLevel.INFO, logSystem.spyLogs);
+    	Assert.assertNotNull(lastInfoLog);
+    	Assert.assertEquals(LogLevel.INFO,lastInfoLog.logLevel);
+    	String[] parsedLogText = lastInfoLog.logText.split("\\|");
     	Assert.assertEquals("Fake business logic's run method called", parsedLogText[0]);
     	String todayDate = LocalDate.now().toString();
     	Assert.assertTrue(parsedLogText[1].contains(todayDate));
+    }
+
+    @Then("the log contains error information too")
+    public void theLogContainsErrorInformationToo() {
+        Log lastErrorLog = getLastLogByType(LogLevel.ERROR, logSystem.spyLogs);
+        Assert.assertNotNull(lastErrorLog);
+        Assert.assertEquals(LogLevel.ERROR,lastErrorLog.logLevel);
     }
 
     @Given("the log system set to Debug")
@@ -75,14 +81,13 @@ public class LoggingStepDef {
 
     @Then("log system should contain the parameters' values which the business logic called")
     public void logSystemShouldContainTheParametersValuesWhichTheBusinessLogicCalled() {
-    	FakeBusinessLogic fbl= new FakeBusinessLogic(logSystem);
-    	fbl.runWithParameter("param1", "param2");
-    	Assert.assertTrue(logSystem.spyLogs.get(logSystem.spyLogs.size()-1).logText.contains("param1, param2"));
+        fakeBusinessLogic.runWithParameter("param1", "param2");
+    	Assert.assertTrue(logSystem.spyLogs.get(logSystem.spyLogs.size()-1).logText.contains("param1#param2#"));
     }
 
     @Given("the log system set to not Silent")
     public void theLogSystemSetToNotSilent() {
-        Assert.assertFalse(logSystem.getLogLevel()!=LogLevel.SILENT);
+        logSystem.setLogLevel(LogLevel.INFO);
     }
 
     @Given("caller mode is Anonym")
@@ -92,7 +97,9 @@ public class LoggingStepDef {
 
     @Then("the log system should not contain user and authorization information")
     public void theLogSystemShouldNotContainUserAndAuthorizationInformation() {
-    	throw new io.cucumber.java.PendingException();
+        Log lastInfoLog = getLastLogByType(LogLevel.INFO, logSystem.spyLogs);
+        Assert.assertNotNull(lastInfoLog);
+        Assert.assertNull(lastInfoLog.userInfo);
     }
 
     @Given("caller mode is Personal")
@@ -102,7 +109,9 @@ public class LoggingStepDef {
 
     @Then("the log system should contain user and authorization information")
     public void theLogSystemShouldContainUserAndAuthorizationInformation() {
-        throw new io.cucumber.java.PendingException();
+        Log lastInfoLog = getLastLogByType(LogLevel.INFO, logSystem.spyLogs);
+        Assert.assertNotNull(lastInfoLog);
+        Assert.assertNotNull(lastInfoLog.userInfo);
     }
     
     private boolean containsOnlyErrorLog(List<Log> logs) {
@@ -113,6 +122,17 @@ public class LoggingStepDef {
     		}
     	}
     	return onlyErrorInTheLog;
+    }
+
+
+    private Log getLastLogByType(LogLevel logtype, List<Log> logs) {
+        for (int i=logs.size(); i>0; i--)
+        {
+            if (logs.get(i-1).logLevel == logtype ){
+                return logs.get(i-1);
+            }
+        }
+        return null;
     }
     
 }
