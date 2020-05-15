@@ -15,21 +15,18 @@ public class SpyLoggingSystemWithPersistentIssue extends SpyLoggingSystem implem
 
     private boolean persistentIssue = false;
 
-    @Override
     public void addLog(LogLevel messageLogLevel, String logText, String[] parameters, UserInfo userInfo) {
         if (persistentIssue) {
             notifiedAdminsitrationAboutPersistentLogSystemIssue();
             spyTempLogs.add(new Log(messageLogLevel, logText));
-        }
-        else
+        } else
             super.addLog(messageLogLevel, logText, parameters, userInfo);
     }
 
     @Override
     public void saveTempLogs() {
         spyNumberOfTempLogsTryToSave++;
-        if (!persistentIssue)
-        {
+        if (!persistentIssue) {
             spyLogs.addAll(spyTempLogs);
             spyTempLogs.clear();
             spyNumberOfTempLogsTryToSave = 0;
@@ -51,7 +48,7 @@ public class SpyLoggingSystemWithPersistentIssue extends SpyLoggingSystem implem
         this.persistentIssue = persistentIssue;
     }
 
-    public void giveTimeIsCome(){
+    public void giveTimeIsCome() {
         saveTempLogs();
     }
 }

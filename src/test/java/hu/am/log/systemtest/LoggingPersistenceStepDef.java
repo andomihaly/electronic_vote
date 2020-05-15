@@ -1,9 +1,12 @@
 package hu.am.log.systemtest;
+
 import hu.am.log.fakeloggingsystem.FakeBusinessLogic;
 import hu.am.log.fakeloggingsystem.SpyLoggingSystemWithPersistentIssue;
-import io.cucumber.java.en.*;
-
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
+
 public class LoggingPersistenceStepDef {
     private SpyLoggingSystemWithPersistentIssue logSystem = new SpyLoggingSystemWithPersistentIssue();
     private FakeBusinessLogic fakeBusinessLogic = new FakeBusinessLogic(logSystem);
@@ -28,7 +31,7 @@ public class LoggingPersistenceStepDef {
 
     @Then("the log system continuously collects the logs")
     public void theLogSystemContinuouslyCollectsTheLogs() {
-        Assert.assertEquals(1,logSystem.spyTempLogs.size());
+        Assert.assertEquals(1, logSystem.spyTempLogs.size());
     }
 
     @Given("a limited working log system")
@@ -63,7 +66,7 @@ public class LoggingPersistenceStepDef {
 
     @Then("the unsaved logs successfully saved in a persistent way")
     public void theUnsavedLogsSuccessfullySavedInAPersistentWay() {
-        Assert.assertEquals(persistentLogSize+persistentTempLogSize, logSystem.spyLogs.size());
+        Assert.assertEquals(persistentLogSize + persistentTempLogSize, logSystem.spyLogs.size());
     }
 
     @Given("the persistent problem still present")
@@ -84,6 +87,6 @@ public class LoggingPersistenceStepDef {
         int persistentTempLogSize = logSystem.spyTempLogs.size();
         Assert.assertNotEquals(0, persistentTempLogSize);
         fakeBusinessLogic.run();
-        Assert.assertEquals(persistentTempLogSize+1, logSystem.spyTempLogs.size());
+        Assert.assertEquals(persistentTempLogSize + 1, logSystem.spyTempLogs.size());
     }
 }

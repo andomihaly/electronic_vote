@@ -1,16 +1,17 @@
 package hu.am.log.fakeloggingsystem;
 
 import hu.am.logging.LogSystem;
-import hu.am.logging.entity.LogLevel;
+import hu.am.logging.LogSystemConfig;
 import hu.am.logging.entity.CallerMode;
 import hu.am.logging.entity.Log;
+import hu.am.logging.entity.LogLevel;
 import hu.am.logging.entity.UserInfo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpyLoggingSystem implements LogSystem {
+public class SpyLoggingSystem implements LogSystem, LogSystemConfig {
     public List<Log> spyLogs = new ArrayList<Log>();
     protected LogLevel logLevel = LogLevel.INFO;
     protected CallerMode callerMode = CallerMode.ANONYM;
@@ -25,13 +26,10 @@ public class SpyLoggingSystem implements LogSystem {
         this.callerMode = callerMode;
     }
 
-    @Override
     public void addLog(LogLevel logLevel, String logText, UserInfo userInfo) {
         addLog(logLevel, logText, new String[]{}, userInfo);
     }
 
-
-    @Override
     public void addLog(LogLevel messageLogLevel, String logText, String[] parameters, UserInfo userInfo) {
         if (logLevel.ordinal() >= messageLogLevel.ordinal()) {
             if (LogLevel.INFO.ordinal() <= logLevel.ordinal()) {
@@ -39,7 +37,7 @@ public class SpyLoggingSystem implements LogSystem {
             }
             if (LogLevel.DEBUG.ordinal() <= logLevel.ordinal()) {
                 logText += "|";
-                if (parameters!=null) {
+                if (parameters != null) {
                     for (String parameter : parameters) {
                         logText += parameter + "#";
                     }
@@ -55,5 +53,20 @@ public class SpyLoggingSystem implements LogSystem {
     @Override
     public void saveTempLogs() {
 
+    }
+
+    @Override
+    public void addErrorLog(String logText, UserInfo userInfo) {
+        addLog(LogLevel.ERROR, logText, userInfo);
+    }
+
+    @Override
+    public void addInfoLog(String logText, UserInfo userInfo) {
+        addLog(LogLevel.INFO, logText, userInfo);
+    }
+
+    @Override
+    public void addDebugLog(String logText, UserInfo userInfo, String[] parameters) {
+        addLog(LogLevel.DEBUG, logText, parameters, userInfo);
     }
 }
