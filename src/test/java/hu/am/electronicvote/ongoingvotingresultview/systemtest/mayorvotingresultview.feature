@@ -19,6 +19,8 @@ Jellemző: Folyamatban lévő önkormányzati szavazás részvételi arányának
     Akkor látom az aktuális összegzett települési részvételi arányt
     De nem látom az aktuális szavazási eredményeket
 
+  # TODO : Kerület?
+
   Forgatókönyv: Körzeti képviselő választási eredmények megtekintése
     Amikor kiválasztok egy körzetet
     Akkor látom az aktuális körzeti részvételi arányt
