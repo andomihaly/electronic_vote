@@ -13,8 +13,6 @@ public class MayorVotingResultViewStepDef {
 
     @Before
     public void setUp(){
-        // TODO: 2020. 05. 22. Önkormányzati választás
-        // a fake implementációt meg kell különböztetni?
         KnownOngoingResultViewObject.election = new FakeElection();
         KnownOngoingResultViewObject.ongoingStatisticProvider = new FakeReferendumStatistic(KnownOngoingResultViewObject.election );
         KnownOngoingResultViewObject.finalResultProvider = new FakeFinalResultProvider(KnownOngoingResultViewObject.election );

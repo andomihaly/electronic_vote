@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         strict = true,
-        features = "src/test/java/hu/am/electronicvote/vote/systemtest",
+        features = "src/test/java/hu/am/electronicvote/vote/systemtest/vote.feature",
         snippets = CucumberOptions.SnippetType.CAMELCASE,
         plugin = {"progress", "json:target/executable-specification/cucumber.json"},
         monochrome = true
