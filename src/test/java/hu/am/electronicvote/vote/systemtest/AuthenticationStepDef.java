@@ -1,6 +1,5 @@
 package hu.am.electronicvote.vote.systemtest;
 
-import hu.am.electronicvote.vote.entity.User;
 import hu.am.electronicvote.vote.fakevotingsystem.FakeAuthenticationInvalidUser;
 import hu.am.electronicvote.vote.systemtest.common.KnownVoteObject;
 import io.cucumber.java.hu.Akkor;
@@ -12,7 +11,6 @@ import static org.junit.Assert.assertTrue;
 
 public class AuthenticationStepDef {
     private KnownVoteObject helper = new KnownVoteObject();
-    private User user;
 
     @Amennyiben("megadom a helyes felhasználónév-jelszó párosom")
     public void iGiveMyRightUsernameAndPassword() {

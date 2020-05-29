@@ -2,7 +2,6 @@ package hu.am.electronicvote.vote.fakevotingsystem;
 
 import hu.am.electronicvote.vote.Authentication;
 import hu.am.electronicvote.vote.AuthenticationConnector;
-import hu.am.electronicvote.vote.VotePresenter;
 import hu.am.electronicvote.vote.systemtest.common.KnownVoteObject;
 
 public class FakeAuthentication implements Authentication {
@@ -15,11 +14,11 @@ public class FakeAuthentication implements Authentication {
 
     @Override
     public void loginWithPassword() {
-        connector.getUserInfo(new KnownVoteObject().validUser.sessionId);
+        connector.getUserInfo(KnownVoteObject.VALID_USER_SESSIONID);
     }
 
     @Override
     public void loginWithEIdentityCard() {
-        connector.getUserInfo(new KnownVoteObject().validUser.sessionId);
+        connector.getUserInfo(KnownVoteObject.VALID_USER_SESSIONID);
     }
 }

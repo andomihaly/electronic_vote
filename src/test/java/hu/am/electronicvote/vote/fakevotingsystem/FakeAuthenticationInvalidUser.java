@@ -15,11 +15,11 @@ public class FakeAuthenticationInvalidUser implements Authentication {
 
     @Override
     public void loginWithPassword() {
-        connector.showError("NOT_LOGGED_IN_USER|" + new KnownVoteObject().notLoggedInUser.sessionId);
+        connector.showError("NOT_LOGGED_IN_USER|" + KnownVoteObject.NOT_LOGGED_IN_USER_SESSIONID);
     }
 
     @Override
     public void loginWithEIdentityCard() {
-        connector.showError("NOT_LOGGED_IN_USER|" + new KnownVoteObject().notLoggedInUser.sessionId);
+        connector.showError("NOT_LOGGED_IN_USER|" + KnownVoteObject.NOT_LOGGED_IN_USER_SESSIONID);
     }
 }

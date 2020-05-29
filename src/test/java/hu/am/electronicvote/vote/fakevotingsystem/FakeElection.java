@@ -1,6 +1,5 @@
 package hu.am.electronicvote.vote.fakevotingsystem;
 
-import hu.am.electronicvote.vote.entity.User;
 import hu.am.electronicvote.vote.exception.*;
 import hu.am.electronicvote.vote.Election;
 import hu.am.electronicvote.vote.VotePresenter;
@@ -29,9 +28,9 @@ public class FakeElection implements Election {
         return new Questionnaire();
     }
 
-    public void vote(User user, List<Answer> vote) {
+    public void vote(String userId, List<Answer> vote) {
         try {
-            checkUser(user);
+            checkUser(userId);
             checkVote(vote);
             this.vote = vote;
         } catch (VoteException e) {
@@ -42,8 +41,8 @@ public class FakeElection implements Election {
 
     }
 
-    private void checkUser(User user) {
-        if (!user.sessionId.equals("Valid User SID")) {
+    private void checkUser(String userId) {
+        if (!userId.equals("Valid User ID")) {
             throw new InvalidUserException();
         }
         if (this.vote != null) {
@@ -61,7 +60,7 @@ public class FakeElection implements Election {
         }
     }
 
-    public boolean isVoted(User user) {
+    public boolean isVoted(String userId) {
         return this.vote != null;
     }
 }
