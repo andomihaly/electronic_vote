@@ -1,8 +1,8 @@
 package hu.am.electronicvote.vote.fakevotingsystem;
 
-import hu.am.electronicvote.vote.AuthenticationConnector;
+import hu.am.electronicvote.vote.AuthorizationConnector;
 
-public class SpyAuthenticationConnector implements AuthenticationConnector {
+public class SpyAuthorizationConnector implements AuthorizationConnector {
     public String lastErrorMessage;
     public String lastUserInfo;
     public String sessionId;

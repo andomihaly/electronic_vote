@@ -1,6 +1,6 @@
 package hu.am.electronicvote.vote;
 
-public interface Authentication {
+public interface Authorization {
 
     void loginWithPassword();
 

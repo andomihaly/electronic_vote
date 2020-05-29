@@ -1,14 +1,14 @@
 package hu.am.electronicvote.vote.fakevotingsystem;
 
-import hu.am.electronicvote.vote.Authentication;
-import hu.am.electronicvote.vote.AuthenticationConnector;
+import hu.am.electronicvote.vote.Authorization;
+import hu.am.electronicvote.vote.AuthorizationConnector;
 import hu.am.electronicvote.vote.systemtest.common.KnownVoteObject;
 
-public class FakeAuthentication implements Authentication {
+public class FakeAuthorization implements Authorization {
 
-    private final AuthenticationConnector connector;
+    private final AuthorizationConnector connector;
 
-    public FakeAuthentication(AuthenticationConnector connector) {
+    public FakeAuthorization(AuthorizationConnector connector) {
         this.connector = connector;
     }
 
