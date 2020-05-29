@@ -3,7 +3,7 @@ package hu.am.electronicvote.vote;
 import hu.am.electronicvote.vote.entity.User;
 
 public interface UserManagement {
-    boolean isLoggedIn(User user);
+    boolean isLoggedIn(String sessionId);
 
     boolean hasRightToVote(User user);
 }

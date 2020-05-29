@@ -28,7 +28,7 @@ public class VoteStepDef {
 
     @És("sikeresen azonosítom magam")
     public void iIdentifyMyselfSuccessfully() {
-        assertTrue(helper.userManagement.isLoggedIn(helper.validUser));
+        assertTrue(helper.userManagement.isLoggedIn(helper.validUser.sessionId));
         assertTrue(helper.userManagement.hasRightToVote(helper.validUser));
     }
 
@@ -45,14 +45,14 @@ public class VoteStepDef {
 
     @De("nem tudom magam azonosítani")
     public void iCantIdentifyMyself() {
-        assertFalse(helper.userManagement.isLoggedIn(helper.invalidUser));
+        assertFalse(helper.userManagement.isLoggedIn(helper.invalidUser.sessionId));
     }
 
     @Akkor("nem tudok szavazni")
     public void iCantVote() {
         assertFalse(helper.election.isVoted(helper.invalidUser));
         helper.election.vote(helper.invalidUser, Arrays.asList(helper.validAnswer));
-        assertFalse(helper.userManagement.isLoggedIn(helper.invalidUser));
+        assertFalse(helper.userManagement.isLoggedIn(helper.invalidUser.sessionId));
         assertFalse(helper.election.isVoted(helper.invalidUser));
         assertEquals("INVALID_USER", helper.spyPresenter.lastErrorMessage);
     }

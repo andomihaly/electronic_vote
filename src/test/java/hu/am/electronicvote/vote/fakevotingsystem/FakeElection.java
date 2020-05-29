@@ -3,7 +3,7 @@ package hu.am.electronicvote.vote.fakevotingsystem;
 import hu.am.electronicvote.vote.entity.User;
 import hu.am.electronicvote.vote.exception.*;
 import hu.am.electronicvote.vote.Election;
-import hu.am.electronicvote.vote.Presenter;
+import hu.am.electronicvote.vote.VotePresenter;
 import hu.am.electronicvote.vote.entity.Answer;
 import hu.am.electronicvote.vote.entity.Question;
 import hu.am.electronicvote.vote.entity.Questionnaire;
@@ -14,11 +14,11 @@ import java.util.Set;
 
 public class FakeElection implements Election {
 
-    private final Presenter presenter;
+    private final VotePresenter votePresenter;
     private List<Answer> vote;
 
-    public FakeElection(Presenter presenter){
-        this.presenter = presenter;
+    public FakeElection(VotePresenter votePresenter){
+        this.votePresenter = votePresenter;
     }
 
     public boolean isOngoing() {
@@ -35,15 +35,15 @@ public class FakeElection implements Election {
             checkVote(vote);
             this.vote = vote;
         } catch (VoteException e) {
-            presenter.showError(e.errorCode.toString());
+            votePresenter.showError(e.errorCode.toString());
         } catch (Exception e) {
-            presenter.showError(ErrorCode.UNEXPECTED_ERROR.toString());
+            votePresenter.showError(ErrorCode.UNEXPECTED_ERROR.toString());
         }
 
     }
 
     private void checkUser(User user) {
-        if (!user.sessionId.equals("Valid User")) {
+        if (!user.sessionId.equals("Valid User SID")) {
             throw new InvalidUserException();
         }
         if (this.vote != null) {

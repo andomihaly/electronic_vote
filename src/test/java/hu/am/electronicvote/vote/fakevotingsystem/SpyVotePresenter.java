@@ -1,8 +1,8 @@
 package hu.am.electronicvote.vote.fakevotingsystem;
 
-import hu.am.electronicvote.vote.Presenter;
+import hu.am.electronicvote.vote.VotePresenter;
 
-public class SpyPresenter implements Presenter {
+public class SpyVotePresenter implements VotePresenter {
 
     public String lastErrorMessage;
 

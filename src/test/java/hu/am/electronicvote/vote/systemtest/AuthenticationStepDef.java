@@ -1,10 +1,13 @@
 package hu.am.electronicvote.vote.systemtest;
 
 import hu.am.electronicvote.vote.entity.User;
+import hu.am.electronicvote.vote.fakevotingsystem.FakeAuthenticationInvalidUser;
 import hu.am.electronicvote.vote.systemtest.common.KnownVoteObject;
 import io.cucumber.java.hu.Akkor;
 import io.cucumber.java.hu.Amennyiben;
+import org.junit.Assert;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class AuthenticationStepDef {
@@ -13,36 +16,37 @@ public class AuthenticationStepDef {
 
     @Amennyiben("megadom a helyes felhasználónév-jelszó párosom")
     public void iGiveMyRightUsernameAndPassword() {
-        user = helper.authentication.loginWithPassword();
+        helper.authentication.loginWithPassword();
     }
 
     @Akkor("be vagyok jelentkezve a rendszerbe")
     public void iLoggedIntoTheSystem() {
-        helper.userManagement.isLoggedIn(user);
+        String sessionId = helper.spyAuthenticationConnector.sessionId;
+        Assert.assertTrue(helper.userManagement.isLoggedIn(sessionId));
     }
 
     @Amennyiben("kártyaolvasóval beolvasom az eSzemélyim")
     public void cardReaderReadMyEIdentityCard() {
-        user = helper.authentication.loginWithEIdentityCard();
+        helper.authentication.loginWithEIdentityCard();
     }
+
     @Amennyiben("megadom a helyes PIN kódomat")
     public void iGiveMyRightPinCode() {
 
     }
     @Amennyiben("nem helyes felhasználónév-jelszó párost adok meg")
     public void iGiveIncorrectUsernameAndPassword() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        helper.authentication = new FakeAuthenticationInvalidUser(helper.spyAuthenticationConnector);
+        helper.authentication.loginWithPassword();
     }
     @Akkor("nem vagyok bejelentkezve a rendszerbe")
     public void iNotLoggedIntoTheSystem() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        String sessionId = helper.spyAuthenticationConnector.sessionId;
+        Assert.assertFalse(helper.userManagement.isLoggedIn(sessionId));
     }
     @Akkor("értesítést kapok a sikertelen bejelentkezésről")
     public void iGetNotificationAboutUnsuccessfulLogin() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        assertTrue(helper.spyAuthenticationConnector.lastErrorMessage.contains("NOT_LOGGED_IN_USER"));
     }
     @Amennyiben("nem sikerül azonosítanom magam eSzemélyivel")
     public void unsuccessfulAuthenticationWithEIdentificationCard() {

@@ -6,8 +6,8 @@ import hu.am.electronicvote.vote.UserManagement;
 import java.time.LocalDate;
 
 public class FakeUserManagement implements UserManagement {
-    public boolean isLoggedIn(User user) {
-        return user.sessionId.equals("Valid User");
+    public boolean isLoggedIn(String sessionId) {
+        return sessionId.equals("Valid User SID");
     }
 
     public boolean hasRightToVote(User user) {

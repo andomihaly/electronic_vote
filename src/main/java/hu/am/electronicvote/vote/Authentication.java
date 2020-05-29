@@ -1,10 +1,8 @@
 package hu.am.electronicvote.vote;
 
-import hu.am.electronicvote.vote.entity.User;
-
 public interface Authentication {
 
-    User loginWithPassword();
+    void loginWithPassword();
 
-    User loginWithEIdentityCard();
+    void loginWithEIdentityCard();
 }
