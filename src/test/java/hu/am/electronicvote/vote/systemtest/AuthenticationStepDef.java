@@ -50,8 +50,8 @@ public class AuthenticationStepDef {
     }
     @Amennyiben("nem sikerül azonosítanom magam eSzemélyivel")
     public void unsuccessfulAuthenticationWithEIdentificationCard() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        helper.authentication = new FakeAuthenticationInvalidUser(helper.spyAuthenticationConnector);
+        helper.authentication.loginWithEIdentityCard();
     }
     @Amennyiben("{int}-sz(.)r helytelen jelszót adok meg a felhasználónevemhez")
     public void iGiveIncorrectPasswordSeveralTimes(int numberOfTimes) {
