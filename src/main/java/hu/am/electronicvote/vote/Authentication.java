@@ -5,4 +5,6 @@ import hu.am.electronicvote.vote.entity.User;
 public interface Authentication {
 
     User loginWithPassword();
+
+    User loginWithEIdentityCard();
 }

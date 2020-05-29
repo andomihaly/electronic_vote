@@ -23,13 +23,11 @@ public class AuthenticationStepDef {
 
     @Amennyiben("kártyaolvasóval beolvasom az eSzemélyim")
     public void cardReaderReadMyEIdentityCard() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        user = helper.authentication.loginWithEIdentityCard();
     }
     @Amennyiben("megadom a helyes PIN kódomat")
     public void iGiveMyRightPinCode() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
     }
     @Amennyiben("nem helyes felhasználónév-jelszó párost adok meg")
     public void iGiveIncorrectUsernameAndPassword() {

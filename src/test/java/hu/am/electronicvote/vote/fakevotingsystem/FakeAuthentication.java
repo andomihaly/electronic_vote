@@ -10,4 +10,9 @@ public class FakeAuthentication implements Authentication {
     public User loginWithPassword() {
         return new KnownVoteObject().validUser;
     }
+
+    @Override
+    public User loginWithEIdentityCard() {
+        return new KnownVoteObject().validUser;
+    }
 }
