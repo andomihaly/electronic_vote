@@ -22,7 +22,7 @@ Jellemző: Állampolgár azonosítása
     És értesítést kapok a sikertelen bejelentkezésről
     
 	Forgatókönyv: Felhasználó letiltása rövid időre
-	  Amennyiben 3-szor helytelen jelszót adok meg a felhasználónevemhez
+    Amennyiben 3-szor helytelen jelszót adok meg a felhasználónevemhez
     Akkor 10 percig nem tudok bejelentkezni a helyes jelszóval sem
     És értesítést kapok erről
 

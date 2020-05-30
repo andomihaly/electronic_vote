@@ -1,6 +1,5 @@
 package hu.am.electronicvote.ongoingvotingresultview.systemtest.fakesystem;
 
-import hu.am.electronicvote.vote.entity.User;
 import hu.am.electronicvote.vote.Election;
 import hu.am.electronicvote.vote.entity.Answer;
 import hu.am.electronicvote.vote.entity.Questionnaire;
@@ -19,12 +18,12 @@ public class FakeElection implements Election {
     }
 
     @Override
-    public void vote(User user, List<Answer> vote) {
+    public void vote(String userId, List<Answer> vote) {
 
     }
 
     @Override
-    public boolean isVoted(User user) {
+    public boolean isVoted(String userId) {
         return false;
     }
 }

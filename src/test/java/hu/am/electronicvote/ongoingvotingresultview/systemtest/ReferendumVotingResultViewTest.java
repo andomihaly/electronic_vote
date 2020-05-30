@@ -1,6 +1,5 @@
 package hu.am.electronicvote.ongoingvotingresultview.systemtest;
 
-import io.cucumber.java.hu.*;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;

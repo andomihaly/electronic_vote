@@ -1,60 +1,63 @@
 package hu.am.electronicvote.vote.systemtest;
 
-import hu.am.electronicvote.vote.entity.User;
+import hu.am.electronicvote.vote.fakevotingsystem.FakeAuthorizationInvalidUser;
 import hu.am.electronicvote.vote.systemtest.common.KnownVoteObject;
 import io.cucumber.java.hu.Akkor;
 import io.cucumber.java.hu.Amennyiben;
+import org.junit.Assert;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class AuthenticationStepDef {
+public class AuthorizationStepDef {
     private KnownVoteObject helper = new KnownVoteObject();
-    private User user;
 
     @Amennyiben("megadom a helyes felhasználónév-jelszó párosom")
     public void iGiveMyRightUsernameAndPassword() {
-        user = helper.authentication.loginWithPassword();
+        helper.authorization.loginWithPassword();
     }
 
     @Akkor("be vagyok jelentkezve a rendszerbe")
     public void iLoggedIntoTheSystem() {
-        helper.userManagement.isLoggedIn(user);
+        String sessionId = helper.spyAuthorizationConnector.sessionId;
+        Assert.assertTrue(helper.userManagement.isLoggedIn(sessionId));
     }
 
     @Amennyiben("kártyaolvasóval beolvasom az eSzemélyim")
     public void cardReaderReadMyEIdentityCard() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        helper.authorization.loginWithEIdentityCard();
     }
+
     @Amennyiben("megadom a helyes PIN kódomat")
     public void iGiveMyRightPinCode() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
     }
     @Amennyiben("nem helyes felhasználónév-jelszó párost adok meg")
     public void iGiveIncorrectUsernameAndPassword() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        helper.authorization = new FakeAuthorizationInvalidUser(helper.spyAuthorizationConnector);
+        helper.authorization.loginWithPassword();
     }
     @Akkor("nem vagyok bejelentkezve a rendszerbe")
     public void iNotLoggedIntoTheSystem() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        String sessionId = helper.spyAuthorizationConnector.sessionId;
+        Assert.assertFalse(helper.userManagement.isLoggedIn(sessionId));
     }
     @Akkor("értesítést kapok a sikertelen bejelentkezésről")
     public void iGetNotificationAboutUnsuccessfulLogin() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        assertTrue(helper.spyAuthorizationConnector.lastErrorMessage.contains("NOT_LOGGED_IN_USER"));
     }
     @Amennyiben("nem sikerül azonosítanom magam eSzemélyivel")
-    public void unsuccessfulAuthenticationWithEIdentificationCard() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void unsuccessfulAuthorizationWithEIdentificationCard() {
+        helper.authorization = new FakeAuthorizationInvalidUser(helper.spyAuthorizationConnector);
+        helper.authorization.loginWithEIdentityCard();
     }
     @Amennyiben("{int}-sz(.)r helytelen jelszót adok meg a felhasználónevemhez")
     public void iGiveIncorrectPasswordSeveralTimes(int numberOfTimes) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        helper.authorization = new FakeAuthorizationInvalidUser(helper.spyAuthorizationConnector);
+        helper.authorization.loginWithPassword();
+        helper.authorization.loginWithPassword();
+        helper.authorization.loginWithPassword();
+
     }
     @Akkor("{int} percig nem tudok bejelentkezni a helyes jelszóval sem")
     public void iCantLoginWithTheCorrectPasswordDuringGivenMinutes(int numberOfMinutes) {
@@ -92,7 +95,7 @@ public class AuthenticationStepDef {
         throw new io.cucumber.java.PendingException();
     }
     @Akkor("személyes azonosításig nem tudok bejelentkezni a helyes jelszóval sem")
-    public void iCantLoginWithTheCorrectPasswordUntilPersonalAuthentication() {
+    public void iCantLoginWithTheCorrectPasswordUntilPersonalAuthorization() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
