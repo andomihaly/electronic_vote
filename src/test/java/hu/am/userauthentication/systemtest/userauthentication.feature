@@ -16,37 +16,38 @@ Jellemző: Felhasználó azonosítás
   Forgatókönyv: Elfelejtett jelszó kezelése
     Amennyiben jelzem a rendszernek, hogy elfelejtettem a jelszavamat
     És megadom az érvényes felhasználónevemet
-    Akkor a rendszer jelzi, hogy elküldi az emailt
+    Akkor a rendszer jelzést küld arról, hogy elküldi az emailt
     És a megadott email címre elküld egy új, egyszerhasználatos jelszót
 
   Forgatókönyv: Elfelejtett jelszó kezelése érvénytelen felhasználónévvel
     Amennyiben jelzem a rendszernek, hogy elfelejtettem a jelszavamat
-    Akkor a rendszer jelzi, hogy elküldi az emailt
+    És érvénytelen felhasználónevet adok meg
+    Akkor a rendszer jelzést küld arról, hogy elküldi az emailt
     De nem küld el semmilyen emailt
 
   Forgatókönyv: Sikeres jelszócsere egyszerhasználatos jelszó esetén
     Amennyiben kezdeményezek egy jelszócserét
     És megadom az egyszerhasználatos jelszavamat
     És megadom kétszer ugyanazt az új jelszót, amely 8 hosszú
-    Akkor a rendszer jelzi a jelszócsere sikerességét
+    Akkor a rendszer jelzést küld a jelszócsere sikerességéről
 
   Forgatókönyv: Sikeres jelszócsere
     Amennyiben kezdeményezek egy jelszócserét
     És megadom az érvényes jelszavamat
     És megadom kétszer ugyanazt az új jelszót, amely 8 hosszú
-    Akkor a rendszer jelzi a jelszócsere sikerességét
+    Akkor a rendszer jelzést küld a jelszócsere sikerességéről
 
   Forgatókönyv: Sikertelen jelszócsere érvénytelen jelszóval
     Amennyiben kezdeményezek egy jelszócserét
     És érvénytelen aktuális jelszót adok meg
     És megadom kétszer ugyanazt az új jelszót, amely 8 hosszú
-    Akkor a rendszer jelzi, hogy nem megfelelő a megadott aktuális jelszavam
+    Akkor a rendszer jelzést küld arról, hogy nem megfelelő a megadott aktuális jelszavam
 
   Forgatókönyv: Sikertelen jelszócsere nem szabályos új jelszóval
     Amennyiben kezdeményezek egy jelszócserét
     És megadom az aktuális jelszavamat
     És megadom kétszer ugyanazt az új jelszót, amely 7 hosszú
-    Akkor a rendszer jelzi, hogy nem megfelelő új jelszót adtam
+    Akkor a rendszer jelzést küld arról, hogy nem megfelelő új jelszót adtam meg
 
   Forgatókönyv: Sikeres azonosítás
     Amennyiben a bejelentkezéshez megadom a felhasználónevemet
