@@ -5,7 +5,6 @@ import io.cucumber.java.hu.Akkor;
 import io.cucumber.java.hu.Amikor;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotEquals;
 
 public class ResultViewStepDefCommon {
 
@@ -18,7 +17,7 @@ public class ResultViewStepDefCommon {
 
     @Amikor("megnézem a választási adatokat")
     public void iSeeReferendumResult() {
-        KnownOngoingResultViewObject.ongoingTurnoutStatistic = KnownOngoingResultViewObject.ongoingStatisticProvider.getTurnoutByCountry( "HUN");
+        KnownOngoingResultViewObject.ongoingTurnoutStatistic = KnownOngoingResultViewObject.ongoingStatisticProvider.getTurnoutByCountry("HUN");
         KnownOngoingResultViewObject.electionResult = KnownOngoingResultViewObject.finalResultProvider.getResultByCountry("HUN");
     }
 

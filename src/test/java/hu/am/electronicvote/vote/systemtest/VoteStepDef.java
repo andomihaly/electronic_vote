@@ -5,7 +5,6 @@ import hu.am.electronicvote.vote.entity.Question;
 import hu.am.electronicvote.vote.systemtest.common.KnownVoteObject;
 import io.cucumber.java.hu.*;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 

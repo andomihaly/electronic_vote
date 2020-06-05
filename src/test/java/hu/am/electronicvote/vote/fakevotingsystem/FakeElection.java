@@ -1,11 +1,11 @@
 package hu.am.electronicvote.vote.fakevotingsystem;
 
-import hu.am.electronicvote.vote.exception.*;
 import hu.am.electronicvote.vote.Election;
 import hu.am.electronicvote.vote.VotePresenter;
 import hu.am.electronicvote.vote.entity.Answer;
 import hu.am.electronicvote.vote.entity.Question;
 import hu.am.electronicvote.vote.entity.Questionnaire;
+import hu.am.electronicvote.vote.exception.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +16,7 @@ public class FakeElection implements Election {
     private final VotePresenter votePresenter;
     private List<Answer> vote;
 
-    public FakeElection(VotePresenter votePresenter){
+    public FakeElection(VotePresenter votePresenter) {
         this.votePresenter = votePresenter;
     }
 
@@ -52,7 +52,7 @@ public class FakeElection implements Election {
 
     private void checkVote(List<Answer> vote) {
         Set<Question> questionSet = new HashSet<>();
-        for (Answer answer: vote) {
+        for (Answer answer : vote) {
             questionSet.add(answer.question);
         }
         if (vote.size() != questionSet.size()) {

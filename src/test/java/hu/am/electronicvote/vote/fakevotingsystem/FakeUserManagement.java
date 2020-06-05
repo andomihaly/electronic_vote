@@ -10,16 +10,15 @@ public class FakeUserManagement implements UserManagement {
         return userSessionId.equals("Valid User SID");
     }
 
-    private LocalDate getBirthDate(String userSessionId){
-        if (KnownVoteObject.YOUNG_USER_SESSIONID.equals(userSessionId)){
+    private LocalDate getBirthDate(String userSessionId) {
+        if (KnownVoteObject.YOUNG_USER_SESSIONID.equals(userSessionId)) {
             return LocalDate.now().minusYears(18).plusDays(1);
         }
         return LocalDate.now().minusYears(20);
     }
 
     public boolean hasRightToVote(String userSessionId) {
-        if (getBirthDate(userSessionId).isAfter(LocalDate.now().minusYears(18))) return false;
-        return true;
+        return !getBirthDate(userSessionId).isAfter(LocalDate.now().minusYears(18));
     }
 
     @Override

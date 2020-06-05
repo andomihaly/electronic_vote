@@ -5,17 +5,19 @@ import hu.am.electronicvote.ongoingvotingresultview.systemtest.fakesystem.FakeEl
 import hu.am.electronicvote.ongoingvotingresultview.systemtest.fakesystem.FakeFinalResultProvider;
 import hu.am.electronicvote.ongoingvotingresultview.systemtest.fakesystem.FakeReferendumStatistic;
 import io.cucumber.java.Before;
-import io.cucumber.java.hu.*;
+import io.cucumber.java.hu.Akkor;
+import io.cucumber.java.hu.Amennyiben;
+import io.cucumber.java.hu.Amikor;
 
 import static org.junit.Assert.assertTrue;
 
 public class MayorVotingResultViewStepDef {
 
     @Before
-    public void setUp(){
+    public void setUp() {
         KnownOngoingResultViewObject.election = new FakeElection();
-        KnownOngoingResultViewObject.ongoingStatisticProvider = new FakeReferendumStatistic(KnownOngoingResultViewObject.election );
-        KnownOngoingResultViewObject.finalResultProvider = new FakeFinalResultProvider(KnownOngoingResultViewObject.election );
+        KnownOngoingResultViewObject.ongoingStatisticProvider = new FakeReferendumStatistic(KnownOngoingResultViewObject.election);
+        KnownOngoingResultViewObject.finalResultProvider = new FakeFinalResultProvider(KnownOngoingResultViewObject.election);
 
         KnownOngoingResultViewObject.ongoingTurnoutStatistic = null;
         KnownOngoingResultViewObject.electionResult = null;
