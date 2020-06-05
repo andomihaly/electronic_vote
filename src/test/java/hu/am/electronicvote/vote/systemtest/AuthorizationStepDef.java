@@ -102,14 +102,14 @@ public class AuthorizationStepDef {
 
     @Amennyiben("hosszú időre le voltam tiltva")
     public void iWasBannedForLongTime() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        iGiveIncorrectPasswordThreeTimes();
+        iGiveIncorrectPasswordFourTimes();
     }
 
     @Amennyiben("letelt a hosszú idejű tiltás")
     public void afterLongTimeBanned() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        FakeTimeAuthorization faiu = (FakeTimeAuthorization) helper.authorization;
+        faiu.lockingTime = faiu.lockingTime.minusHours(2);
     }
 
     @Akkor("személyes azonosításig nem tudok bejelentkezni a helyes jelszóval sem")
