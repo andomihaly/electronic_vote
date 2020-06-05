@@ -67,21 +67,21 @@ public class AuthorizationStepDef {
 
     @Amennyiben("4-szer helytelen jelszót adok meg a felhasználónevemhez")
     public void iGiveIncorrectPasswordFourTimes() {
-        ((FakeTimeAuthorization) helper.authorization).lockingTriesLimit = 7;
+        ((FakeTimeAuthorization) helper.authorization).lockingTriesLimit += 4;
         for (int i = 0; i < 4; i++) {
             helper.authorization.loginWithPassword();
             Assert.assertTrue(helper.spyAuthorizationConnector.lastErrorMessage.contains("NOT_LOGGED_IN_USER"));
         }
     }
 
-    @Akkor("{int} percig nem tudok bejelentkezni a helyes jelszóval sem")
-    public void iCantLoginWithTheCorrectPasswordDuringGivenMinutes(int numberOfMinutes) {
+    @Akkor("10 percig nem tudok bejelentkezni a helyes jelszóval sem")
+    public void iCantLoginWithTheCorrectPasswordDuringGivenMinutes() {
         helper.authorization.loginWithPassword();
     }
 
-    @Akkor("értesítést kapok erről")
-    public void iGetNotification() {
-        Assert.assertTrue(helper.spyAuthorizationConnector.lastErrorMessage.contains("NOT_LOGGED_IN_USER_BECAUSE_OF_USER_LOCK"));
+    @Akkor("értesítést kapok, hogy 10 percig nem jelentkezhetek be")
+    public void iGetNotification10MinutesMessage() {
+        Assert.assertTrue(helper.spyAuthorizationConnector.lastErrorMessage.contains("NOT_LOGGED_IN_USER_BECAUSE_OF_USER_LOCK_FOR_SHORT_TIME"));
     }
 
     @Amennyiben("rövid időre le voltam tiltva")
@@ -95,9 +95,14 @@ public class AuthorizationStepDef {
         faiu.lockingTime = faiu.lockingTime.minusMinutes(20);
     }
 
-    @Akkor("{int} óráig nem tudok bejelentkezni a helyes jelszóval sem")
-    public void iCantLoginWithTheCorrectPasswordDuringGivenHours(int numberOfHours) {
+    @Akkor("2 óráig nem tudok bejelentkezni a helyes jelszóval sem")
+    public void iCantLoginWithTheCorrectPasswordDuringGivenHours() {
         helper.authorization.loginWithPassword();
+    }
+
+    @Akkor("értesítést kapok, hogy 2 óráig nem jelentkezhetek be")
+    public void iGetNotification2HoursMessage() {
+        Assert.assertTrue(helper.spyAuthorizationConnector.lastErrorMessage.contains("NOT_LOGGED_IN_USER_BECAUSE_OF_USER_LOCK_FOR_LONG_TIME"));
     }
 
     @Amennyiben("hosszú időre le voltam tiltva")
@@ -114,7 +119,11 @@ public class AuthorizationStepDef {
 
     @Akkor("személyes azonosításig nem tudok bejelentkezni a helyes jelszóval sem")
     public void iCantLoginWithTheCorrectPasswordUntilPersonalAuthorization() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        helper.authorization.loginWithPassword();
+    }
+
+    @Akkor("értesítést kapok, hogy személyes azonosításig nem jelentkezhetek be")
+    public void iGetNotificationPersonalAuthenticationMessage() {
+        Assert.assertTrue(helper.spyAuthorizationConnector.lastErrorMessage.contains("NOT_LOGGED_IN_USER_BECAUSE_OF_USER_LOCK_FOR_PERSONAL_AUTHENTICATION"));
     }
 }

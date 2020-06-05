@@ -26,8 +26,14 @@ public class FakeTimeAuthorization implements Authorization {
         } else {
             if (LocalDateTime.now().isAfter(lockingTime))
                 connector.getUserInfo(KnownVoteObject.VALID_USER_SESSIONID);
-            else
-                connector.showError(ErrorCode.NOT_LOGGED_IN_USER_BECAUSE_OF_USER_LOCK + "|" + KnownVoteObject.NOT_LOGGED_IN_USER_SESSIONID + "|" + numberOfTries);
+            else {
+                if(lockingTriesLimit == 3)
+                    connector.showError(ErrorCode.NOT_LOGGED_IN_USER_BECAUSE_OF_USER_LOCK_FOR_SHORT_TIME + "|" + KnownVoteObject.NOT_LOGGED_IN_USER_SESSIONID + "|" + numberOfTries);
+                else if(lockingTriesLimit == 7)
+                    connector.showError(ErrorCode.NOT_LOGGED_IN_USER_BECAUSE_OF_USER_LOCK_FOR_LONG_TIME + "|" + KnownVoteObject.NOT_LOGGED_IN_USER_SESSIONID + "|" + numberOfTries);
+                else if(lockingTriesLimit == 11)
+                    connector.showError(ErrorCode.NOT_LOGGED_IN_USER_BECAUSE_OF_USER_LOCK_FOR_PERSONAL_AUTHENTICATION + "|" + KnownVoteObject.NOT_LOGGED_IN_USER_SESSIONID + "|" + numberOfTries);
+            }
         }
         numberOfTries++;
     }
