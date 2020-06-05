@@ -12,6 +12,7 @@ public class FakeTimeAuthorization implements Authorization {
     private final AuthorizationConnector connector;
     private int numberOfTries = 0;
     public LocalDateTime lockingTime;
+    public int lockingTriesLimit = 3;
 
     public FakeTimeAuthorization(AuthorizationConnector connector) {
         this.connector = connector;
@@ -19,7 +20,7 @@ public class FakeTimeAuthorization implements Authorization {
 
     @Override
     public void loginWithPassword() {
-        if (numberOfTries < 3) {
+        if (numberOfTries < lockingTriesLimit) {
             connector.showError(ErrorCode.NOT_LOGGED_IN_USER + "|" + KnownVoteObject.NOT_LOGGED_IN_USER_SESSIONID + "|" + numberOfTries);
             lockingTime = LocalDateTime.now().plusMinutes(10);
         } else {

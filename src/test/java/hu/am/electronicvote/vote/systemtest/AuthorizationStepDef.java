@@ -56,10 +56,19 @@ public class AuthorizationStepDef {
         helper.authorization.loginWithEIdentityCard();
     }
 
-    @Amennyiben("{int}-sz(.)r helytelen jelszót adok meg a felhasználónevemhez")
-    public void iGiveIncorrectPasswordSeveralTimes(int numberOfTimes) {
+    @Amennyiben("3-szor helytelen jelszót adok meg a felhasználónevemhez")
+    public void iGiveIncorrectPasswordThreeTimes() {
         helper.authorization = new FakeTimeAuthorization(helper.spyAuthorizationConnector);
-        for (int i = 0; i < numberOfTimes; i++) {
+        for (int i = 0; i < 3; i++) {
+            helper.authorization.loginWithPassword();
+            Assert.assertTrue(helper.spyAuthorizationConnector.lastErrorMessage.contains("NOT_LOGGED_IN_USER"));
+        }
+    }
+
+    @Amennyiben("4-szer helytelen jelszót adok meg a felhasználónevemhez")
+    public void iGiveIncorrectPasswordFourTimes() {
+        ((FakeTimeAuthorization) helper.authorization).lockingTriesLimit = 7;
+        for (int i = 0; i < 4; i++) {
             helper.authorization.loginWithPassword();
             Assert.assertTrue(helper.spyAuthorizationConnector.lastErrorMessage.contains("NOT_LOGGED_IN_USER"));
         }
@@ -77,7 +86,7 @@ public class AuthorizationStepDef {
 
     @Amennyiben("rövid időre le voltam tiltva")
     public void iWasBannedForShortTime() {
-        iGiveIncorrectPasswordSeveralTimes(3);
+        iGiveIncorrectPasswordThreeTimes();
     }
 
     @Amennyiben("letelt a rövid idejű tiltás")
@@ -88,8 +97,7 @@ public class AuthorizationStepDef {
 
     @Akkor("{int} óráig nem tudok bejelentkezni a helyes jelszóval sem")
     public void iCantLoginWithTheCorrectPasswordDuringGivenHours(int numberOfHours) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        helper.authorization.loginWithPassword();
     }
 
     @Amennyiben("hosszú időre le voltam tiltva")

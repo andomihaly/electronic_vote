@@ -21,7 +21,7 @@ Jellemző: Állampolgár azonosítása
     Akkor nem vagyok bejelentkezve a rendszerbe
     És értesítést kapok a sikertelen bejelentkezésről
     
-	Forgatókönyv: Felhasználó letiltása rövid időre
+  Forgatókönyv: Felhasználó letiltása rövid időre
     Amennyiben 3-szor helytelen jelszót adok meg a felhasználónevemhez
     Akkor 10 percig nem tudok bejelentkezni a helyes jelszóval sem
     És értesítést kapok erről
@@ -32,8 +32,8 @@ Jellemző: Állampolgár azonosítása
     Majd megadom a helyes felhasználónév-jelszó párosom
     Akkor be vagyok jelentkezve a rendszerbe
 
-	Forgatókönyv: Felhasználó letiltása hosszú időre
-		Amennyiben rövid időre le voltam tiltva
+  Forgatókönyv: Felhasználó letiltása hosszú időre
+    Amennyiben rövid időre le voltam tiltva
     És 4-szer helytelen jelszót adok meg a felhasználónevemhez
     Akkor 2 óráig nem tudok bejelentkezni a helyes jelszóval sem
     És értesítést kapok erről
