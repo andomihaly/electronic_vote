@@ -1,12 +1,12 @@
 package hu.am.electronicvote.vote.systemtest.common;
 
-import hu.am.electronicvote.vote.fakevotingsystem.*;
 import hu.am.electronicvote.vote.Authorization;
-import hu.am.electronicvote.vote.UserManagement;
 import hu.am.electronicvote.vote.Election;
+import hu.am.electronicvote.vote.UserManagement;
 import hu.am.electronicvote.vote.entity.Answer;
 import hu.am.electronicvote.vote.entity.Option;
 import hu.am.electronicvote.vote.entity.Question;
+import hu.am.electronicvote.vote.fakevotingsystem.*;
 
 public class KnownVoteObject {
     public static final String YOUNG_USER_SESSIONID = "Young Valid User SID";

@@ -9,15 +9,15 @@ import io.cucumber.java.hu.Akkor;
 import io.cucumber.java.hu.Amennyiben;
 import io.cucumber.java.hu.Amikor;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class ReferendumVotingResultViewStepDef {
 
     @Before
-    public void setUp(){
+    public void setUp() {
         KnownOngoingResultViewObject.election = new FakeElection();
-        KnownOngoingResultViewObject.ongoingStatisticProvider = new FakeReferendumStatistic(KnownOngoingResultViewObject.election );
-        KnownOngoingResultViewObject.finalResultProvider = new FakeFinalResultProvider(KnownOngoingResultViewObject.election );
+        KnownOngoingResultViewObject.ongoingStatisticProvider = new FakeReferendumStatistic(KnownOngoingResultViewObject.election);
+        KnownOngoingResultViewObject.finalResultProvider = new FakeFinalResultProvider(KnownOngoingResultViewObject.election);
 
         KnownOngoingResultViewObject.ongoingTurnoutStatistic = null;
         KnownOngoingResultViewObject.electionResult = null;
@@ -35,7 +35,7 @@ public class ReferendumVotingResultViewStepDef {
 
     @Amikor("kiválasztom a megyét vagy a fővárost")
     public void iChooseTheCountyOrTheCapital() {
-        KnownOngoingResultViewObject.ongoingTurnoutStatistic = KnownOngoingResultViewObject.ongoingStatisticProvider.getTurnoutByCounty( "CSONGRAD_CSANAD");
+        KnownOngoingResultViewObject.ongoingTurnoutStatistic = KnownOngoingResultViewObject.ongoingStatisticProvider.getTurnoutByCounty("CSONGRAD_CSANAD");
         KnownOngoingResultViewObject.electionResult = KnownOngoingResultViewObject.finalResultProvider.getResultByCounty("CSONGRAD_CSANAD");
     }
 

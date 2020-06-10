@@ -1,10 +1,10 @@
 package hu.am.electronicvote.log.systemtest;
 
+import hu.am.electronicvote.log.fakeloggingsystem.FakeBusinessLogic;
 import hu.am.electronicvote.log.fakeloggingsystem.SpyLoggingSystem;
 import hu.am.electronicvote.logging.entity.CallerMode;
 import hu.am.electronicvote.logging.entity.Log;
 import hu.am.electronicvote.logging.entity.LogLevel;
-import hu.am.electronicvote.log.fakeloggingsystem.FakeBusinessLogic;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
