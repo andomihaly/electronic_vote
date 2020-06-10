@@ -3,7 +3,8 @@ Jellemző: Felhasználó azonosítás
 
   Forgatókönyv: Új felhasználói fiók felvétele
     Amennyiben új felhasználói fiók felvételét indítom egy megfelelő email cím és egy egyedi felhasználónév megadásával
-    Akkor a rendszer a megadott email címre elküld egy új, egyszerhasználatos jelszót
+    Akkor a rendszer a megadott email címre elküldi az új fiók felvételéről szóló emailt
+    És benne egy új, egyszerhasználatos jelszót
 
   Forgatókönyv: Új felhasználói fiók sikertelen felvétele hibás email címmel
     Amennyiben új felhasználói fiók felvételét indítom hibás email címmel
@@ -14,10 +15,12 @@ Jellemző: Felhasználó azonosítás
     Akkor a rendszer jelzést küld a foglalt felhasználónévről
 
   Forgatókönyv: Elfelejtett jelszó kezelése
+#   ToDo Amennyiben és És nem fedi a stepDef belsejét ("Aktív user vagyok...")
     Amennyiben jelzem a rendszernek, hogy elfelejtettem a jelszavamat
     És megadom az érvényes felhasználónevemet
     Akkor a rendszer jelzést küld arról, hogy elküldi az emailt
-    És a megadott email címre elküld egy új, egyszerhasználatos jelszót
+    És a megadott email címre elküldi az elfelejtett jelszó miatti jelszócseréről szóló emailt
+    És benne egy új, egyszerhasználatos jelszót
 
   Forgatókönyv: Elfelejtett jelszó kezelése érvénytelen felhasználónévvel
     Amennyiben jelzem a rendszernek, hogy elfelejtettem a jelszavamat
