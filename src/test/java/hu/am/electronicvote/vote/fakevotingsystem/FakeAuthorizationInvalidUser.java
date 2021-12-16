@@ -13,12 +13,12 @@ public class FakeAuthorizationInvalidUser implements Authorization {
         this.connector = connector;
     }
 
-    @Override
+
     public void loginWithPassword() {
         connector.showError(ErrorCode.NOT_LOGGED_IN_USER + "|" + KnownVoteObject.NOT_LOGGED_IN_USER_SESSIONID + "|3");
     }
 
-    @Override
+
     public void loginWithEIdentityCard() {
         connector.showError(ErrorCode.NOT_LOGGED_IN_USER + "|" + KnownVoteObject.NOT_LOGGED_IN_USER_SESSIONID);
     }
